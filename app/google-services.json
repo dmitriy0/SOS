@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "40940130284",
+    "firebase_url": "https://forfindpeople.firebaseio.com",
+    "project_id": "forfindpeople",
+    "storage_bucket": "forfindpeople.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:40940130284:android:d2a8c94c1e1e6f5f",
+        "android_client_info": {
+          "package_name": "com.example.searchandrescue"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "40940130284-uhh1fr0l119rbboj75elnko8vo3966pa.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.searchandrescue",
+            "certificate_hash": "e13d4b115ac98661a34d5af50b5d60bedc48f614"
+          }
+        },
+        {
+          "client_id": "40940130284-1j16pihn77afe3lk7sm2eco95on1o9li.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyApy4DZzW-zd5zUWzBka0kLk_yZBoC1oRo"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "40940130284-1j16pihn77afe3lk7sm2eco95on1o9li.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
