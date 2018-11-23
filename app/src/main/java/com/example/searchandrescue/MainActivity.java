@@ -80,33 +80,44 @@ public class MainActivity extends AppCompatActivity
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
-        int id = item.getItemId();
+
 
         Fragment fragment = null;
         Class fragmentClass = null;
 
-
+        int id = item.getItemId();
         if (id == R.id.nav_camera) {
-            // Handle the camera action
-        } else if (id == R.id.nav_authorization) {
+        }
+        else if (id == R.id.nav_authorization) {
             fragmentClass = Authorization.class;
-        } else if (id == R.id.nav_slideshow) {
-
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        }
+        else if (id == R.id.nav_slideshow) {
+            fragmentClass = Settings.class;
+        }
+        else if (id == R.id.nav_manage) {
 
         }
+        else if (id == R.id.nav_share) {
+
+        }
+        else if (id == R.id.nav_send) {
+
+        }
+        else{
+
+        }
+
 
         try {
+            assert fragmentClass != null;
             fragment = (Fragment) fragmentClass.newInstance();
-        } catch (Exception e) {
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
             e.printStackTrace();
         }
-
         FragmentManager fragmentManager = getSupportFragmentManager();
+        assert fragment != null;
         fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
         // Выделяем выбранный пункт меню в шторке
         item.setChecked(true);
