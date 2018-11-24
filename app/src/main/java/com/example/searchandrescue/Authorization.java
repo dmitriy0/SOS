@@ -21,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.junior.stronger197.sos.Tasks;
+import com.junior.stronger197.sos.Volunteer;
 
 import java.util.Objects;
 
