@@ -83,6 +83,15 @@
           }
         },
         {
+
+          "client_id": "40940130284-dn320ur8p73hd176dc3knsalepotoqj0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.junior.stronger197.sos",
+            "certificate_hash": "e13d4b115ac98661a34d5af50b5d60bedc48f614"
+          }
+        },
+        {
           "client_id": "40940130284-1j16pihn77afe3lk7sm2eco95on1o9li.apps.googleusercontent.com",
           "client_type": 3
         }

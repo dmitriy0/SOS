@@ -16,12 +16,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 
-import com.junior.stronger197.sos.Blog;
-import com.junior.stronger197.sos.Task;
-import com.junior.stronger197.sos.Tasks;
-import com.junior.stronger197.sos.Volunteer;
 
-import com.junior.stronger197.sos.Map;
+
+
+import com.junior.stronger197.sos.AddTask;
+
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -33,6 +32,7 @@ public class MainActivity extends AppCompatActivity
         setContentView(R.layout.activity_main);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setElevation(0);
 
         FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
@@ -100,17 +100,10 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         int id = item.getItemId();
-         if (id == R.id.nav_authorization) {
+        
+        if (id == R.id.nav_authorization) {
             fragment = new Authorization();
         }
-
-        else if (id == R.id.nav_share) {
-
-        }
-        else if (id == R.id.nav_send) {
-
-        }
-
         else if (id == R.id.nav_vol) {
             fragment = new Volunteer();
         }
@@ -119,6 +112,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_map) {
             fragment = new Map();
+        }
+        else if(id == R.id.nav_addTasks){
+            fragment = new AddTask();
         }
         else{
 
