@@ -1,4 +1,4 @@
-package com.junior.stronger197.sos;
+package com.example.searchandrescue;
 
 import android.content.Context;
 import android.content.Intent;
