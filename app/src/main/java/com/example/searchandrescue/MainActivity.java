@@ -18,6 +18,7 @@ import android.view.MenuItem;
 import android.view.ViewGroup;
 
 
+import com.junior.stronger197.sos.AddTask;
 import com.junior.stronger197.sos.Blog;
 import com.junior.stronger197.sos.Coordinates;
 import com.junior.stronger197.sos.Task;
@@ -138,6 +139,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_map) {
             fragment = new Map();
+        }
+        else if(id == R.id.nav_addTasks){
+            fragment = new AddTask();
         }
         else{
 
