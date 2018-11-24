@@ -70,14 +70,18 @@ public class AddTask extends Fragment {
                     Toast.makeText(getActivity(), "Пожалуйста, авторизируйтесь", Toast.LENGTH_LONG).show();
                 }
                 else {
-                saveDataToDatabase();
+                    try {
+                        saveDataToDatabase();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
         return rootView;
     }
 
-    private void saveDataToDatabase(){
+    private void saveDataToDatabase() throws InterruptedException {
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
 
@@ -93,15 +97,14 @@ public class AddTask extends Fragment {
             }
         });
         // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-        int intCounter = 0;
-        //intCounter = Integer.parseInt(dbCounter);
+        int intCounter = -1;
+                //Integer.parseInt(dbCounter);
         intCounter++;
         String stringCounter = Integer.toString(intCounter);
         // устанавливаем значение
             mRef.child("tasks").child(stringCounter).child("number").setValue(stringCounter);
             mRef.child("tasks").child(stringCounter).child("nameOfTask").setValue(mNameTask);
             mRef.child("tasks").child(stringCounter).child("describing").setValue(mDescribingOfTask);
-            mRef.child("tasks").child(stringCounter).child("nameOfTask").setValue(mNameTask);
             mRef.child("tasks").child(stringCounter).child("Coordinate1").setValue(mCoordinate1);
             mRef.child("tasks").child(stringCounter).child("Coordinate2").setValue(mCoordinate2);
             mRef.child("tasks").child(stringCounter).child("Equipment").setValue(mEquipment);
@@ -110,6 +113,8 @@ public class AddTask extends Fragment {
             mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
             mRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);
             mRef.child("counter").setValue(stringCounter);
+
+            mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
             Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
     }
 }
