@@ -135,9 +135,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_coor) {
             fragment = new Coordinates();
-
+        }
         else if (id == R.id.nav_map) {
-            fragmentClass = Map.class;
+            fragment = new Map();
         }
         else{
 
