@@ -17,13 +17,37 @@
             android:icon="@drawable/ic_menu_slideshow"
             android:title="Slideshow" />
         <item
-            android:id="@+id/nav_manage"
+        android:id="@+id/nav_manage"
+        android:icon="@drawable/ic_menu_manage"
+        android:title="Tools" />
+        <item
+            android:id="@+id/nav_vol"
             android:icon="@drawable/ic_menu_manage"
+            android:title="Volunteer" />
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Tasks" />
+        <item
+            android:id="@+id/nav_task"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Task" />
+        <item
+            android:id="@+id/nav_blog"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Blog" />
+        <item
+            android:id="@+id/nav_coor"
+            android:icon="@drawable/ic_menu_manage"
+
+            android:title="Coordinates" />
+
             android:title="Tools" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_menu_manage"
             android:title="Map" />
+
     </group>
 
     <item android:title="Communicate">

@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.searchandrescue.R;
 
-
-public class Tasks extends Fragment {
-
+public class Task extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -23,10 +21,7 @@ public class Tasks extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-        View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
-        return rootView;
-
+        return inflater.inflate(R.layout.fragment_task, container, false);
     }
 
 
