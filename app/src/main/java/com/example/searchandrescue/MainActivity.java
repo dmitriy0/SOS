@@ -17,8 +17,6 @@ import android.view.MenuItem;
 
 import com.junior.stronger197.sos.AddTask;
 import com.junior.stronger197.sos.Blog;
-import com.junior.stronger197.sos.Coordinates;
-import com.junior.stronger197.sos.Task;
 import com.junior.stronger197.sos.Tasks;
 import com.junior.stronger197.sos.Volunteer;
 
@@ -105,14 +103,6 @@ public class MainActivity extends AppCompatActivity
         if (id == R.id.nav_authorization) {
             fragment = new Authorization();
         }
-
-        else if (id == R.id.nav_share) {
-
-        }
-        else if (id == R.id.nav_send) {
-
-        }
-
         else if (id == R.id.nav_vol) {
             fragment = new Volunteer();
         }

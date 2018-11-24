@@ -18,13 +18,14 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            tools:text="Название задачи" />
+            android:hint="Название задачи" />
 
         <EditText
             android:id="@+id/describingOfTask"
             android:layout_width="match_parent"
             android:layout_height="181dp"
             android:ems="10"
+            android:hint="Описание"
             android:inputType="textMultiLine" />
 
         <EditText
@@ -33,7 +34,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            tools:text="Координаты 1" />
+            android:hint="Координаты 1" />
 
         <EditText
             android:id="@+id/coordinate2"
@@ -41,7 +42,7 @@
             android:layout_height="wrap_content"
             android:ems="10"
             android:inputType="textPersonName"
-            tools:text="Координаты 2" />
+            android:hint="Координаты 2" />
 
         <Button
             android:id="@+id/addTask"

@@ -9,8 +9,6 @@
             android:id="@+id/nav_authorization"
             android:icon="@drawable/ic_61457"
             android:title="Авторизация" />
-
-
         <item
             android:id="@+id/nav_vol"
             android:icon="@drawable/ic_942799"
@@ -27,7 +25,6 @@
             android:id="@+id/nav_addTasks"
             android:icon="@drawable/ic_menu_manage"
             android:title="Добавить задачу" />
-
     </group>
 
     <item android:title="Communicate">
