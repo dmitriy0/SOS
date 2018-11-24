@@ -17,11 +17,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.ViewGroup;
 
+
 import com.junior.stronger197.sos.Blog;
 import com.junior.stronger197.sos.Coordinates;
 import com.junior.stronger197.sos.Task;
 import com.junior.stronger197.sos.Tasks;
 import com.junior.stronger197.sos.Volunteer;
+
+import com.junior.stronger197.sos.Map;
 
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -117,6 +120,7 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_send) {
 
         }
+
         else if (id == R.id.nav_vol) {
             fragment = new Volunteer();
         }
@@ -131,6 +135,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_coor) {
             fragment = new Coordinates();
+
+        else if (id == R.id.nav_map) {
+            fragmentClass = Map.class;
         }
         else{
 
