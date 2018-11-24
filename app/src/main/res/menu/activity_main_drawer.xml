@@ -23,6 +23,10 @@
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_34250"
             android:title="Map" />
+        <item
+            android:id="@+id/nav_addTasks"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Добавить задачу" />
 
     </group>
 
