@@ -17,6 +17,8 @@ import android.view.MenuItem;
 
 
 
+
+
 import com.junior.stronger197.sos.AddTask;
 
 
@@ -98,7 +100,7 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         int id = item.getItemId();
-
+        
         if (id == R.id.nav_authorization) {
             fragment = new Authorization();
         }

@@ -6,6 +6,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,8 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.junior.stronger197.sos.Tasks;
+import com.junior.stronger197.sos.Volunteer;
 
 import java.util.Objects;
 
@@ -88,6 +93,11 @@ public class Authorization extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if (task.isSuccessful()) {
                     Toast.makeText(getContext(), "Регистрация успешна", Toast.LENGTH_LONG).show();
+                    Fragment fragment = new Tasks();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
                 } else {
                     Toast.makeText(getContext(), "Регистрация провалена", Toast.LENGTH_LONG).show();
                 }
@@ -118,6 +128,11 @@ public class Authorization extends Fragment {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(getContext(), "Авторизация успешна", Toast.LENGTH_LONG).show();
+                    Fragment fragment = new Volunteer();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
+                    drawer.closeDrawer(GravityCompat.START);
                 }
                 else{
                     Toast.makeText(getContext(), "Авторизация провалена", Toast.LENGTH_LONG).show();
