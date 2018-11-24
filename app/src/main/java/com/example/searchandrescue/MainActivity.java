@@ -15,6 +15,15 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+
+
+import com.junior.stronger197.sos.AddTask;
+import com.junior.stronger197.sos.Blog;
+import com.junior.stronger197.sos.Tasks;
+import com.junior.stronger197.sos.Volunteer;
+import com.junior.stronger197.sos.Map;
+
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -93,41 +102,21 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         int id = item.getItemId();
-        if (id == R.id.nav_camera) {
-        }
-        else if (id == R.id.nav_authorization) {
+
+        if (id == R.id.nav_authorization) {
             fragment = new Authorization();
         }
-        else if (id == R.id.nav_slideshow) {
-            fragment = new Settings();
-        }
-        else if (id == R.id.nav_manage) {
-
-        }
-        else if (id == R.id.nav_share) {
-
-        }
-        else if (id == R.id.nav_send) {
-
-        }
-
         else if (id == R.id.nav_vol) {
             fragment = new Volunteer();
         }
         else if (id == R.id.nav_tasks) {
             fragment = new Tasks();
         }
-        else if (id == R.id.nav_task) {
-            fragment = new Task();
-        }
-        else if (id == R.id.nav_blog) {
-            fragment = new Blog();
-        }
-        else if (id == R.id.nav_coor) {
-            fragment = new Coordinates();
-        }
         else if (id == R.id.nav_map) {
             fragment = new Map();
+        }
+        else if(id == R.id.nav_addTasks){
+            fragment = new AddTask();
         }
         else{
 

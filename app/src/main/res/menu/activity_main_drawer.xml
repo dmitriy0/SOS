@@ -4,50 +4,27 @@
     tools:showIn="navigation_view">
 
     <group android:checkableBehavior="single">
-        <item
-            android:id="@+id/nav_camera"
-            android:icon="@drawable/ic_menu_camera"
-            android:title="Import" />
+
         <item
             android:id="@+id/nav_authorization"
-            android:icon="@drawable/ic_menu_gallery"
+            android:icon="@drawable/ic_61457"
             android:title="Авторизация" />
         <item
-            android:id="@+id/nav_slideshow"
-            android:icon="@drawable/ic_menu_slideshow"
-            android:title="Slideshow" />
-        <item
-        android:id="@+id/nav_manage"
-        android:icon="@drawable/ic_menu_manage"
-        android:title="Tools" />
-        <item
             android:id="@+id/nav_vol"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_942799"
             android:title="Volunteer" />
         <item
             android:id="@+id/nav_tasks"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_25242"
             android:title="Tasks" />
         <item
-            android:id="@+id/nav_task"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Task" />
-        <item
-            android:id="@+id/nav_blog"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Blog" />
-        <item
-            android:id="@+id/nav_coor"
-            android:icon="@drawable/ic_menu_manage"
-
-            android:title="Coordinates" />
-
-            android:title="Tools" />
-        <item
             android:id="@+id/nav_map"
-            android:icon="@drawable/ic_menu_manage"
+            android:icon="@drawable/ic_34250"
             android:title="Map" />
-
+        <item
+            android:id="@+id/nav_addTasks"
+            android:icon="@drawable/ic_menu_manage"
+            android:title="Добавить задачу" />
     </group>
 
     <item android:title="Communicate">
