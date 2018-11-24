@@ -15,6 +15,8 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.junior.stronger197.sos.Map;
+
 public class MainActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
@@ -102,6 +104,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_send) {
 
+        }
+        else if (id == R.id.nav_map) {
+            fragmentClass = Map.class;
         }
         else{
 
