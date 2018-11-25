@@ -69,8 +69,13 @@ public class Tasks extends Fragment {
         return rootView;
 
     }public void updateUI(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()), android.R.layout.simple_list_item_1, mTasks);
-        listTasks.setAdapter(adapter);
+
+        if(getActivity() != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mTasks);
+            listTasks.setAdapter(adapter);
+        }
+
+
     }
 
 
