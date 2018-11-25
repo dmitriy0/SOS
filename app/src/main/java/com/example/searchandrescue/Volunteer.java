@@ -52,6 +52,7 @@ public class Volunteer extends Fragment {
     private String equp;
     private Uri selectedImage;
     private ImageView avatar;
+    public int counterFor = 0;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
 
 
@@ -128,6 +129,7 @@ public class Volunteer extends Fragment {
                 }
                 else {
                     saveDataToDatabase();
+                    counterFor = 1;
                 }
             }
             });
@@ -137,19 +139,35 @@ public class Volunteer extends Fragment {
     private void saveDataToDatabase(){
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
-        // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-        // устанавливаем значение
-        mRef.child("volunter").child(user.getUid()).child("full_name").setValue(full_name);
-        mRef.child("volunter").child(user.getUid()).child("car_type").setValue(car_type);
-        mRef.child("volunter").child(user.getUid()).child("car_sign_in").setValue(car_reg_sign);
-        mRef.child("volunter").child(user.getUid()).child("car_seats").setValue(car_seats);
-        mRef.child("volunter").child(user.getUid()).child("car_name").setValue(car_name);
-        mRef.child("volunter").child(user.getUid()).child("age").setValue(vol_age);
-        mRef.child("volunter").child(user.getUid()).child("equipment").setValue(equp);
-        String imagePath = "gs://forfindpeople.appspot.com/" + "volunteer/" + user.getUid(); // путь до обложки
-        mRef.child("volunter").child(user.getUid()).child("Photo").setValue(imagePath);
-        uploadFile(imagePath, selectedImage);
-        Toast.makeText(getActivity(), "Волонтер успешно создан", Toast.LENGTH_SHORT).show();
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if(counterFor == 1) {
+                    dbCounter = dataSnapshot.child("numberOfPeople").getValue(String.class);
+                    Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
+                    int intCounter = Integer.parseInt(dbCounter);
+                    intCounter++;
+                    String stringCounter = Integer.toString(intCounter);
+                    // устанавливаем значение
+                    mRef.child("volunter").child(user.getUid()).child("full_name").setValue(full_name);
+                    mRef.child("volunter").child(user.getUid()).child("car_type").setValue(car_type);
+                    mRef.child("volunter").child(user.getUid()).child("car_sign_in").setValue(car_reg_sign);
+                    mRef.child("volunter").child(user.getUid()).child("car_seats").setValue(car_seats);
+                    mRef.child("volunter").child(user.getUid()).child("car_name").setValue(car_name);
+                    mRef.child("volunter").child(user.getUid()).child("age").setValue(vol_age);
+                    mRef.child("volunter").child(user.getUid()).child("equipment").setValue(equp);
+                    mRef.child("volunter").child(user.getUid()).child("numberOfVolunter").setValue(stringCounter);
+                    mRef.child("numberOfPeople").setValue(stringCounter);
+                    mRef.child("ratingOfVolonterAchivs").child(stringCounter).setValue("0");
+                    mRef.child("ratingOfVolonterNames").child(stringCounter).setValue(full_name);
+                    String imagePath = "gs://forfindpeople.appspot.com/" + "volunteer/" + user.getUid(); // путь до обложки
+                    mRef.child("volunter").child(user.getUid()).child("Photo").setValue(imagePath);
+                    uploadFile(imagePath, selectedImage);
+                    counterFor = 0;
+                    Toast.makeText(getActivity(), "Волонтер успешно создан", Toast.LENGTH_SHORT).show();
+                }
+            }
+
     }
 
     public void setFocusChange(EditText view) {
