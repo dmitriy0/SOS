@@ -15,7 +15,8 @@
     <string name="avatar">Аватар:</string>
     <string name="age">Возраст:</string>
     <string name="sex">Пол:</string>
-    <string name="auto_set">Автомобиль</string>
+    <string name="auto_set">Транспорт</string>
+    <string name="auto_type">Вид транспорта</string>
     <string name="auto_name">Наименование</string>
     <string name="register_sign">Номер авто</string>
     <string name="seats">Кол-во сидений (свободные)</string>
