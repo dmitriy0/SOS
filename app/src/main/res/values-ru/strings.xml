@@ -3,6 +3,10 @@
     <string name="app_name">Search and rescue</string>
 
     <string name="auth">Авторизация</string>
+    <string name="volunteer">Волонтёр</string>
+    <string name="tasks">Задания</string>
+    <string name="map">Карта</string>
+    <string name="new_task">Новое задание</string>
 
     <string name="login">Логин:</string>
     <string name="pass">Пароль:</string>
@@ -11,13 +15,27 @@
     <string name="avatar">Аватар:</string>
     <string name="age">Возраст:</string>
     <string name="sex">Пол:</string>
-    <string name="auto_set">Автомобиль</string>
+    <string name="auto_set">Транспорт</string>
+    <string name="auto_type">Вид транспорта</string>
     <string name="auto_name">Наименование</string>
     <string name="register_sign">Номер авто</string>
     <string name="seats">Кол-во сидений (свободные)</string>
     <string name="equipment">Снаряжение</string>
     <string name="eq_info">Ваше снаряжение (через запятую)</string>
     <string name="save">Сохранить</string>
+
+    <string name="task_title">Название задачи</string>
+    <string name="task_desc">Описание</string>
+    <string name="task_need_res">Необходимое снаряжение</string>
+    <string name="task_weather">Природные условия</string>
+    <string name="task_time">Время сбора</string>
+    <string name="task_date_start">Дата начала задания</string>
+    <string name="coor_1">Координаты 1</string>
+    <string name="coor_2">Координаты 2</string>
+    <string name="task_attach">Прикрепить изображение</string>
+    <string name="task_create">Создать Задачу</string>
+
+    <string name="coor">Введите координаты</string>
 
     <string-array name="sex">
         <item>Муж</item>

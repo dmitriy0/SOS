@@ -1,6 +1,10 @@
 package com.junior.stronger197.sos;
 
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +12,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.example.searchandrescue.CircularTransformation;
+import com.example.searchandrescue.CropSquareTransformation;
 import com.example.searchandrescue.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -18,12 +25,18 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
+import java.io.IOException;
 import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
 
 
 public class AddTask extends Fragment {
 
+    static final int GALLERY_REQUEST = 1;
+    View root;
     private String mNameTask;
     private String mDescribingOfTask;
     private String mCoordinate1;
@@ -48,6 +61,20 @@ public class AddTask extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_add_task, container, false);
+        root = rootView;
+
+        Button addImage = rootView.findViewById(R.id.addImage);
+
+        addImage.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, GALLERY_REQUEST);
+
+            }
+        });
 
         Button addTask =(Button) rootView.findViewById(R.id.addTask); // конпка добавления задачи
         addTask.setOnClickListener(new View.OnClickListener() {
@@ -118,4 +145,34 @@ public class AddTask extends Fragment {
             mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
             Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
     }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+
+        super.onActivityResult(requestCode, resultCode, resultIntent);
+
+        ImageView img = (ImageView) root.findViewById(R.id.attachesImg);
+
+        if (resultCode == RESULT_OK) {
+
+            switch (requestCode) {
+
+                case GALLERY_REQUEST:
+                    Uri selectedImage = resultIntent.getData();
+                    Bitmap bitmap = null;
+                    try {
+                        bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
+
+                    img.setImageBitmap(bitmap);
+                    img.setVisibility(View.VISIBLE);
+                    img.setClipToOutline(true);
+
+            }
+
+        }
+
+    }
+
 }
