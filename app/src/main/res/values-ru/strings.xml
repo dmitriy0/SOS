@@ -39,6 +39,8 @@
 
     <string name="exit">Выход</string>
 
+    <string name="sex_and_age">Пол и Возраст:</string>
+
     <string-array name="sex">
         <item>Муж</item>
         <item>Жен</item>
