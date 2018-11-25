@@ -144,6 +144,9 @@ public class MainActivity extends AppCompatActivity
         else if (id == R.id.nav_exit) {
             // exit
         }
+        else if(id == R.id.volonters){
+            fragment = new Volonters2();
+        }
         else{
 
         }
