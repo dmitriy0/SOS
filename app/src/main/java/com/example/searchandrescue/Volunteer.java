@@ -35,16 +35,16 @@ import java.util.Objects;
 
 public class Volunteer extends Fragment {
 
-    @Override
     private FirebaseAuth mAuth;
     private DatabaseReference myRef;
-    private String car_name = "";
-    private String car_reg_sign = "";
-    private String car_seats = "";
-    private String full_name = "";
-    private String vol_age = "";
+    private String car_name;
+    private String car_reg_sign;
+    private String car_seats;
+    private String full_name;
+    private String vol_age;
+    private String equp;
     private String[] array;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+    FirebaseUser user = mAuth.getInstance().getCurrentUser();
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -65,9 +65,9 @@ public class Volunteer extends Fragment {
                     ((EditText) getActivity().findViewById(R.id.car_name)).setVisibility(View.VISIBLE);
                     ((EditText) getActivity().findViewById(R.id.car_reg_sign)).setVisibility(View.VISIBLE);
                     ((EditText) getActivity().findViewById(R.id.car_seats)).setVisibility(View.VISIBLE);
-                    car_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_name)).getText().toString();
-                    car_reg_sign = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_reg_sign)).getText().toString();
-                    car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
+                    //car_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_name)).getText().toString();
+                    //car_reg_sign = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_reg_sign)).getText().toString();
+                    //car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
                 } else {
 
                     ((EditText) getActivity().findViewById(R.id.car_name)).setVisibility(View.GONE);
@@ -101,6 +101,10 @@ public class Volunteer extends Fragment {
             public void onClick(View v) {
                 full_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.vol_full_name)).getText().toString();
                 vol_age = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.vol_age)).getText().toString();
+                car_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_name)).getText().toString();
+                car_reg_sign = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_reg_sign)).getText().toString();
+                car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
+                equp = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.equipment)).getText().toString();
                 if(user == null){
                     Toast.makeText(getActivity(), "Пожалуйста, авторизируйтесь", Toast.LENGTH_LONG).show();
                 }
@@ -116,17 +120,14 @@ public class Volunteer extends Fragment {
 
         DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
         // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-        int intCounter = 0;
-        //intCounter = Integer.parseInt(dbCounter);
-        intCounter++;
-        String stringCounter = Integer.toString(intCounter);
         // устанавливаем значение
-        mRef.child("volunter").child(stringCounter).child("full_name").setValue(full_name);
-        mRef.child("volunter").child(stringCounter).child("car_sign_in").setValue(car_reg_sign);
-        mRef.child("volunter").child(stringCounter).child("car_seats").setValue(car_seats);
-        mRef.child("volunter").child(stringCounter).child("car_name").setValue(car_name);
-        mRef.child("volunter").child(stringCounter).child("age").setValue(vol_age);
-        mRef.child("volunter").child(stringCounter).child("sex").setValue(array);
+        mRef.child("volunter").child(user.getUid()).child("full_name").setValue(full_name);
+        mRef.child("volunter").child(user.getUid()).child("car_sign_in").setValue(car_reg_sign);
+        mRef.child("volunter").child(user.getUid()).child("car_seats").setValue(car_seats);
+        mRef.child("volunter").child(user.getUid()).child("car_name").setValue(car_name);
+        mRef.child("volunter").child(user.getUid()).child("age").setValue(vol_age);
+        mRef.child("volunter").child(user.getUid()).child("equipment").setValue(equp);
+        //mRef.child("volunter").child(stringCounter).child("sex").setValue(array);
         Toast.makeText(getActivity(), "Волонтер успешно создан", Toast.LENGTH_SHORT).show();
     }
 
