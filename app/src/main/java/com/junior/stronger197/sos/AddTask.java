@@ -145,7 +145,7 @@ public class AddTask extends Fragment {
                     mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
                     mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
 
-                    String imagePath = "gs://forfindpeople.appspot.com/" + "images/" + mNameTmRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);ask + "_" + stringCounter + "_img"; // путь до обложки
+                    String imagePath = "gs://forfindpeople.appspot.com/" + "images/" + mNameTask + "_" + stringCounter + "_img"; // путь до обложки
                     mRef.child("tasks").child(stringCounter).child("UriForPhoto").setValue(imagePath);
                     mRef.child("counter").setValue(stringCounter);
                     uploadFile(imagePath, selectedImage);

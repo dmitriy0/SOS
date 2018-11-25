@@ -9,14 +9,12 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
-<<<<<<< HEAD
-
-=======
 import com.example.searchandrescue.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -29,7 +27,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
->>>>>>> f6460ba5b985959b9cf4dc09631bbfae1ca4eaf5
 
 import java.util.Objects;
 
@@ -45,9 +42,13 @@ public class Task extends Fragment {
     private TextView mDate;
     public String conterOfFragment = "0";
 
+    private String stringCounter;
+    private FirebaseAuth mAuth;
+    FirebaseUser user = mAuth.getInstance().getCurrentUser();
+    private String nowNumber;
+
 
     private DatabaseReference mRef;
-    FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -76,21 +77,46 @@ public class Task extends Fragment {
         Toast.makeText(getActivity(), conterOfFragment, Toast.LENGTH_SHORT).show();
         changeText();
 
+        Button cektedReturnHome = (Button) rootView.findViewById(R.id.returnToHome);
+        cektedReturnHome.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                int intCounter = Integer.parseInt(nowNumber);
+                intCounter++;
+                String stringCounterTru = Integer.toString(intCounter);
+                mRef.child("ratingOfVolunteerCounter").child(stringCounter).setValue(stringCounterTru);
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("returnToHome").setValue("true");
+            }
+        });
+
+        Button cektedTask = (Button) rootView.findViewById(R.id.cektedTask);
+        cektedTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRef = FirebaseDatabase.getInstance().getReference();
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid());
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("wentToBase").setValue("false");
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("returnToHome").setValue("false");
+
+            }
+        });
+
+        Button wentToBase = (Button) rootView.findViewById(R.id.wentToBase);
+        wentToBase.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mRef = FirebaseDatabase.getInstance().getReference();
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("wentToBase").setValue("true");
+            }
+        });
+
         return rootView;
     }
+
     @SuppressLint("WrongViewCast")
     public void changeText() {
-<<<<<<< HEAD
-        mNameTask = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.nameFromDatabase)).getText().toString();
-        mDescrbingOfTask = ((EditText) getActivity().findViewById(R.id.descridingFromDatabase)).getText().toString();
-        mCoordiinate1 = ((EditText) getActivity().findViewById(R.id.coordinate1From)).getText().toString();
-        mCoordinate2 = ((EditText) getActivity().findViewById(R.id.coordinate2From)).getText().toString();
-        mEquipment = ((EditText) getActivity().findViewById(R.id.equipmentFromDatabase)).getText().toString();
-        mNaturalConditions = ((EditText) getActivity().findViewById(R.id.naturalConditionsFrom)).getText().toString();
-        mTime = ((EditText) getActivity().findViewById(R.id.timeFrom)).getText().toString();
-        mDate = ((EditText) getActivity().findViewById(R.id.dateFrom)).getText().toString();
 
-=======
         mRef = FirebaseDatabase.getInstance().getReference();
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
@@ -105,7 +131,8 @@ public class Task extends Fragment {
                     mNaturalConditions.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("NaturalConditions").getValue(String.class));
                     mTime.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("time").getValue(String.class));
                     mDate.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("Date").getValue(String.class));
-
+                    stringCounter = dataSnapshot.child("volunter").child(user.getUid()).child("numberOfVolunter").getValue(String.class);
+                    nowNumber = dataSnapshot.child("ratingOfVolonterAchivs").child(stringCounter).getValue(String.class);
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -113,14 +140,8 @@ public class Task extends Fragment {
             }
         });
 
-        Button cektedTask = (Button) rootView.findViewById(R.id.cektedTask);
-        cektedTask.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                //mRef.child("ratingOfVolunteerCounter").child(stringCounter).child("Date").setValue(mDate);
-            }
-        });
->>>>>>> f6460ba5b985959b9cf4dc09631bbfae1ca4eaf5
+
+
     }
 
 }

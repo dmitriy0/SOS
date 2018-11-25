@@ -27,8 +27,11 @@ import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
@@ -38,6 +41,7 @@ import com.squareup.picasso.Picasso;
 import java.util.Objects;
 
 import static android.app.Activity.RESULT_OK;
+import static android.content.Context.SEARCH_SERVICE;
 
 public class Volunteer extends Fragment {
 
@@ -55,7 +59,7 @@ public class Volunteer extends Fragment {
     public int counterFor = 0;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
 
-
+    DatabaseReference mRef;
     static final int GALLERY_REQUEST = 1;
 
     View root;
@@ -112,8 +116,7 @@ public class Volunteer extends Fragment {
         });
 
 
-        setFocusChange(fullName);
-        setFocusChange(age);
+
         addVol.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -136,14 +139,14 @@ public class Volunteer extends Fragment {
         // Inflate the layout for this fragment
         return rootView;
     }
-    private void saveDataToDatabase(){
+    private void saveDataToDatabase() {
 
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference();
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                if(counterFor == 1) {
-                    dbCounter = dataSnapshot.child("numberOfPeople").getValue(String.class);
+                if (counterFor == 1) {
+                    String dbCounter = dataSnapshot.child("numberOfPeople").getValue(String.class);
                     Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
                     int intCounter = Integer.parseInt(dbCounter);
                     intCounter++;
@@ -168,6 +171,12 @@ public class Volunteer extends Fragment {
                 }
             }
 
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+
+        });
     }
 
     public void setFocusChange(EditText view) {
@@ -215,6 +224,7 @@ public class Volunteer extends Fragment {
         }
 
     }
+
 
 
     private void uploadFile(String path, Uri pathOfFile) {
@@ -269,4 +279,5 @@ public class Volunteer extends Fragment {
 
 
 }
+
 
