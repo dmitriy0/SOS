@@ -69,6 +69,16 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Закрепиться за задачей" />
+        <Button
+            android:id="@+id/wentToBase"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Приехал на базу" />
+        <Button
+            android:id="@+id/returnToHome"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Приехал домой" />
 
         <Button
             android:id="@+id/chat"
