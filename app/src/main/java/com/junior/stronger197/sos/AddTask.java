@@ -1,5 +1,6 @@
 package com.junior.stronger197.sos;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
@@ -13,11 +14,14 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.searchandrescue.CircularTransformation;
 import com.example.searchandrescue.CropSquareTransformation;
 import com.example.searchandrescue.R;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -25,7 +29,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.squareup.picasso.Picasso;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
+
 
 import java.io.IOException;
 import java.util.Objects;
@@ -45,9 +53,14 @@ public class AddTask extends Fragment {
     private String mNaturalConditions;
     private String mTime;
     private String mDate;
+    private Uri selectedImage;
+    private ImageView img;
     private volatile String dbCounter = "";
 
     private FirebaseAuth mAuth;
+
+    private DatabaseReference mRef;
+    public int counterFor = 0;
 
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -88,7 +101,6 @@ public class AddTask extends Fragment {
                 mNaturalConditions = ((EditText) getActivity().findViewById(R.id.naturalConditions)).getText().toString();
                 mTime = ((EditText) getActivity().findViewById(R.id.time)).getText().toString();
                 mDate = ((EditText) getActivity().findViewById(R.id.date)).getText().toString();
-
                 if("".equals(mNameTask)|| "".equals(mDescribingOfTask)|| "".equals(mCoordinate1) || "".equals(mEquipment)
                         || "".equals(mNaturalConditions) || "".equals(mTime)) {
                     Toast.makeText(getActivity(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
@@ -99,6 +111,7 @@ public class AddTask extends Fragment {
                 else {
                     try {
                         saveDataToDatabase();
+                        counterFor = 1;
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -110,13 +123,37 @@ public class AddTask extends Fragment {
 
     private void saveDataToDatabase() throws InterruptedException {
 
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference();
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dbCounter = dataSnapshot.child("counter").getValue(String.class);
-                Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
+                if(counterFor == 1) {
+                    dbCounter = dataSnapshot.child("counter").getValue(String.class);
+                    Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
+                    int intCounter = Integer.parseInt(dbCounter);
+                    intCounter++;
+                    String stringCounter = Integer.toString(intCounter);
+                    // устанавливаем значение
+                    mRef.child("tasks").child(stringCounter).child("number").setValue(stringCounter);
+                    mRef.child("tasks").child(stringCounter).child("nameOfTask").setValue(mNameTask);
+                    mRef.child("tasks").child(stringCounter).child("describing").setValue(mDescribingOfTask);
+                    mRef.child("tasks").child(stringCounter).child("Coordinate1").setValue(mCoordinate1);
+                    mRef.child("tasks").child(stringCounter).child("Coordinate2").setValue(mCoordinate2);
+                    mRef.child("tasks").child(stringCounter).child("Equipment").setValue(mEquipment);
+                    mRef.child("tasks").child(stringCounter).child("NaturalConditions").setValue(mNaturalConditions);
+                    mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
+                    mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
+
+                    String imagePath = "gs://forfindpeople.appspot.com/" + "images/" + mNameTask + "_" + stringCounter + "_img"; // путь до обложки
+                    mRef.child("tasks").child(stringCounter).child("UriForPhoto").setValue(imagePath);
+                    mRef.child("counter").setValue(stringCounter);
+                    uploadFile(imagePath, selectedImage);
+                    mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
+                    counterFor = 0;
+                    Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+                    TextView textView = (TextView) getActivity().findViewById(R.id.textView);
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -124,39 +161,23 @@ public class AddTask extends Fragment {
             }
         });
         // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-        int intCounter = -1;
-                //Integer.parseInt(dbCounter);
-        intCounter++;
-        String stringCounter = Integer.toString(intCounter);
-        // устанавливаем значение
-            mRef.child("tasks").child(stringCounter).child("number").setValue(stringCounter);
-            mRef.child("tasks").child(stringCounter).child("nameOfTask").setValue(mNameTask);
-            mRef.child("tasks").child(stringCounter).child("describing").setValue(mDescribingOfTask);
-            mRef.child("tasks").child(stringCounter).child("Coordinate1").setValue(mCoordinate1);
-            mRef.child("tasks").child(stringCounter).child("Coordinate2").setValue(mCoordinate2);
-            mRef.child("tasks").child(stringCounter).child("Equipment").setValue(mEquipment);
-            mRef.child("tasks").child(stringCounter).child("NaturalConditions").setValue(mNaturalConditions);
-            mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
-            mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
-            mRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);
-            mRef.child("counter").setValue(stringCounter);
 
-            mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
-            Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+
+
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
 
         super.onActivityResult(requestCode, resultCode, resultIntent);
 
-        ImageView img = (ImageView) root.findViewById(R.id.attachesImg);
+        img = (ImageView) root.findViewById(R.id.attachesImg);
 
         if (resultCode == RESULT_OK) {
 
             switch (requestCode) {
 
                 case GALLERY_REQUEST:
-                    Uri selectedImage = resultIntent.getData();
+                    selectedImage = resultIntent.getData();
                     Bitmap bitmap = null;
                     try {
                         bitmap = MediaStore.Images.Media.getBitmap(getContext().getContentResolver(), selectedImage);
@@ -173,5 +194,55 @@ public class AddTask extends Fragment {
         }
 
     }
+    private void uploadFile(String path, Uri pathOfFile) {
+        //if there is a file to upload
+        if (pathOfFile != null) {
+            //displaying a progress dialog while upload is going on
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Uploading");
+            progressDialog.show();
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference riversRef = storage.getReferenceFromUrl(path);// путь на облаке, куда загружается файл, im - название файла на облаке
+            // в переменной типа Uri filePath хранится путь на устройстве до загружаемого файла
+            riversRef.putFile(pathOfFile)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            img.setImageDrawable(null);
+                            Toast.makeText(getActivity(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            //if the upload is not successfull
+                            //hiding the progress dialog
+                            progressDialog.dismiss();
+
+                            //and displaying error message
+
+                            //* заменить на активити
+                            Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //calculating progress percentage
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+
+                            //displaying percentage in progress dialog
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+                        }
+                    });
+        }
+        //if there is not any file
+        else {
+            //you can display an error toast
+        }
+    }
+
 
 }

@@ -152,17 +152,19 @@ public class Authorization extends Fragment {
                 }
             }
         };
-
         mAuth.signInWithEmailAndPassword(mLogin, mPassword).addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(getContext(), "Авторизация успешна", Toast.LENGTH_LONG).show();
                     Fragment fragment = new Tasks();
+
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
                     drawer.closeDrawer(GravityCompat.START);
+
+
 
                 }
                 else{

@@ -1,7 +1,5 @@
 package com.example.searchandrescue;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -11,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-import com.example.searchandrescue.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +25,8 @@ public class Volonters2 extends Fragment {
     private DatabaseReference mRef;
     private List<String> mVolonters;
     ListView listVolonters;
+    private List<String> mRating;
+    ListView listRating;
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -45,8 +44,10 @@ public class Volonters2 extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
-                mVolonters = dataSnapshot.child("allTasks").getValue(t);
-                //Toast.makeText(getActivity(), dataSnapshot.child("allTasks").child("1").getValue(String.class), Toast.LENGTH_SHORT).show();
+                GenericTypeIndicator<List<String>> t1 = new GenericTypeIndicator<List<String>>() {};
+                mVolonters = dataSnapshot.child("ratingOfVolonterNames").getValue(t);
+                mRating = dataSnapshot.child("ratingOfVolonterAchivs").getValue(t1);
+                //Toast.makeText(getActivity(), dataSnapshot.child("allTasks").child("1").getValue(String.class), Toast.LENGTH_SHORT).show();updateUI();
                 updateUI();
             }
 
@@ -61,8 +62,11 @@ public class Volonters2 extends Fragment {
         return rootView;
     }
     public void updateUI(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()), android.R.layout.simple_list_item_1, mVolonters);
-        listVolonters.setAdapter(adapter);
+        if (getActivity() != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()), android.R.layout.simple_list_item_1, mVolonters);
+            ArrayAdapter<String> adapter2 = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()), android.R.layout.simple_list_item_2, mRating);
+            listVolonters.setAdapter(adapter);
+            listRating.setAdapter(adapter2);
+        }
     }
-
 }

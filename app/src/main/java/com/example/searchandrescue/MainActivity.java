@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.junior.stronger197.sos.AddTask;
 
 
@@ -101,6 +102,7 @@ public class MainActivity extends AppCompatActivity
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.main, menu);
+
         return true;
     }
 
@@ -142,7 +144,12 @@ public class MainActivity extends AppCompatActivity
             fragment = new AddTask();
         }
         else if (id == R.id.nav_exit) {
-            // exit
+            FirebaseAuth.getInstance().signOut();
+
+            Intent intent = new Intent(this, Auth.class);
+            startActivity(intent);
+            finish();
+
         }
         else if(id == R.id.volonters){
             fragment = new Volonters2();
