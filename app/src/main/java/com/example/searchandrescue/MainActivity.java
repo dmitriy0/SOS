@@ -1,5 +1,6 @@
 package com.example.searchandrescue;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
@@ -48,11 +49,42 @@ public class MainActivity extends AppCompatActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
 
+        Intent intent = getIntent();
 
-        Fragment fragment = null;
-        fragment = new Authorization();
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+        if (intent.getIntExtra("PARAM", -1) == 1) {
+
+            Fragment fragment = new Tasks();
+            MenuItem item = findViewById(R.id.nav_tasks);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            // Выделяем выбранный пункт меню в шторке
+
+            // Выводим выбранный пункт в заголовке
+
+
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+        } else if (intent.getIntExtra("PARAM", -1) == 2) {
+
+            Fragment fragment = new Volunteer();
+            MenuItem item = findViewById(R.id.nav_vol);
+
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            // Выделяем выбранный пункт меню в шторке
+            //item.setChecked(true);
+            // Выводим выбранный пункт в заголовке
+            //setTitle(item.getTitle());
+
+            DrawerLayout drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawerLayout.closeDrawer(GravityCompat.START);
+
+        } else {
+            //something
+        }
+
     }
 
     @Override
