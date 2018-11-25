@@ -16,6 +16,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import com.google.firebase.auth.FirebaseAuth;
 import com.junior.stronger197.sos.AddTask;
 
 
@@ -143,7 +144,12 @@ public class MainActivity extends AppCompatActivity
             fragment = new AddTask();
         }
         else if (id == R.id.nav_exit) {
-            // exit
+            FirebaseAuth.getInstance().signOut();
+
+            Intent intent = new Intent(this, Auth.class);
+            startActivity(intent);
+            finish();
+
         }
         else{
 
