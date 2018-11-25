@@ -40,6 +40,8 @@
     <string name="task_attach">Attach an image</string>
     <string name="task_create">Create Task</string>
 
+    <string name="exit">Exit</string>
+
     <string name="coor">Enter Coordinates</string>
 
     <string-array name="sex">

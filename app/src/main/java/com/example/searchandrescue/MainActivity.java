@@ -128,11 +128,8 @@ public class MainActivity extends AppCompatActivity
         Fragment fragment = null;
 
         int id = item.getItemId();
-        
-        if (id == R.id.nav_authorization) {
-            fragment = new Authorization();
-        }
-        else if (id == R.id.nav_vol) {
+
+        if (id == R.id.nav_vol) {
             fragment = new Volunteer();
         }
         else if (id == R.id.nav_tasks) {
@@ -144,19 +141,27 @@ public class MainActivity extends AppCompatActivity
         else if(id == R.id.nav_addTasks){
             fragment = new AddTask();
         }
+        else if (id == R.id.nav_exit) {
+            // exit
+        }
         else{
 
         }
 
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-        // Выделяем выбранный пункт меню в шторке
-        item.setChecked(true);
-        // Выводим выбранный пункт в заголовке
-        setTitle(item.getTitle());
+        if (fragment != null) {
 
-        DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+            // Выделяем выбранный пункт меню в шторке
+            item.setChecked(true);
+            // Выводим выбранный пункт в заголовке
+            setTitle(item.getTitle());
+
+            DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
+            drawer.closeDrawer(GravityCompat.START);
+
+        }
+
         return true;
     }
 }

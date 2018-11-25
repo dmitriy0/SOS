@@ -48,7 +48,10 @@
                 android:background="@drawable/input_default"
                 android:ems="10"
                 android:inputType="textEmailAddress"
-                android:padding="16dp" />
+                android:paddingLeft="30dp"
+                android:paddingTop="16dp"
+                android:paddingRight="48dp"
+                android:paddingBottom="16dp" />
 
             <TextView
                 android:id="@+id/textView8"
@@ -70,7 +73,10 @@
                 android:background="@drawable/input_default"
                 android:ems="10"
                 android:inputType="textPassword"
-                android:padding="16dp" />
+                android:paddingLeft="30dp"
+                android:paddingTop="16dp"
+                android:paddingRight="48dp"
+                android:paddingBottom="16dp" />
 
             <Button
                 android:id="@+id/singIn"
