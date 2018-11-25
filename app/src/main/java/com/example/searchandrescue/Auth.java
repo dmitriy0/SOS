@@ -37,75 +37,85 @@ public class Auth extends AppCompatActivity {
     FirebaseUser mUser;
     private FirebaseAuth.AuthStateListener mAuthStateListener;
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-        setContentView(R.layout.activity_auth);
-        Button singIn = (Button) findViewById(R.id.singIn); // кнопка авторизации
-        EditText login = (EditText) findViewById(R.id.login), password = (EditText) findViewById(R.id.password);
+        public void onCreate(Bundle savedInstanceState) {
+            super.onCreate(savedInstanceState);
 
-        singIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLogin = ((EditText) findViewById(R.id.login)).getText().toString();
-                mPassword = ((EditText) findViewById(R.id.password)).getText().toString();
-                if ("".equals(mLogin) || "".equals(mPassword)) {
-                    Toast.makeText(getApplicationContext(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
-                } else {
-                    singInUser();
-                }
+            FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
+            if (user != null) {
+                Intent intent = new Intent(this, MainActivity.class);
+                startActivity(intent);
 
+            } else {
+                setContentView(R.layout.activity_auth);
+                Button singIn = (Button) findViewById(R.id.singIn); // кнопка авторизации
+                EditText login = (EditText) findViewById(R.id.login), password = (EditText) findViewById(R.id.password);
+
+                singIn.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mLogin = ((EditText) findViewById(R.id.login)).getText().toString();
+                        mPassword = ((EditText) findViewById(R.id.password)).getText().toString();
+                        if ("".equals(mLogin) || "".equals(mPassword)) {
+                            Toast.makeText(getApplicationContext(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
+                        } else {
+                            singInUser();
+                        }
+
+                    }
+                });
+
+                login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+
+                        EditText editText = (EditText) view;
+
+                        if (b) {
+                            editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                            editText.setTextColor(Color.parseColor("#000000"));
+                        } else {
+                            editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                            editText.setTextColor(Color.parseColor("#FFFFFF"));
+                        }
+
+                    }
+                });
+                password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                    @Override
+                    public void onFocusChange(View view, boolean b) {
+
+                        EditText editText = (EditText) view;
+
+                        if (b) {
+                            editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                            editText.setTextColor(Color.parseColor("#000000"));
+                        } else {
+                            editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                            editText.setTextColor(Color.parseColor("#FFFFFF"));
+                        }
+
+                    }
+                });
+
+                Button singUp = (Button) findViewById(R.id.singUp); // кнопка регистрации
+                singUp.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        mLogin = ((EditText) findViewById(R.id.login)).getText().toString();
+                        mPassword = ((EditText) findViewById(R.id.password)).getText().toString();
+                        if ("".equals(mLogin) || "".equals(mPassword)) {
+                            Toast.makeText(getApplicationContext(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
+                        } else {
+                            addUser();
+                        }
+                    }
+                });
             }
-        });
+        }
 
-        login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
 
-                EditText editText = (EditText) view;
 
-                if (b) {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
-                    editText.setTextColor(Color.parseColor("#000000"));
-                } else {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
-                    editText.setTextColor(Color.parseColor("#FFFFFF"));
-                }
-
-            }
-        });
-        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                EditText editText = (EditText) view;
-
-                if (b) {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
-                    editText.setTextColor(Color.parseColor("#000000"));
-                } else {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
-                    editText.setTextColor(Color.parseColor("#FFFFFF"));
-                }
-
-            }
-        });
-
-        Button singUp = (Button) findViewById(R.id.singUp); // кнопка регистрации
-        singUp.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                mLogin = ((EditText) findViewById(R.id.login)).getText().toString();
-                mPassword = ((EditText) findViewById(R.id.password)).getText().toString();
-                if ("".equals(mLogin) || "".equals(mPassword)) {
-                    Toast.makeText(getApplicationContext(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
-                } else {
-                    addUser();
-                }
-            }
-        });
-    }
 
     private void addUser() {
         mAuth = FirebaseAuth.getInstance();
@@ -168,5 +178,9 @@ public class Auth extends AppCompatActivity {
             }
         });
     }
-}
+
+            }
+
+
+
 

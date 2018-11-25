@@ -145,7 +145,6 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_exit) {
             FirebaseAuth.getInstance().signOut();
-
             Intent intent = new Intent(this, Auth.class);
             startActivity(intent);
             finish();
