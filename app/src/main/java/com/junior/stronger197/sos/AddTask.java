@@ -58,6 +58,9 @@ public class AddTask extends Fragment {
 
     private FirebaseAuth mAuth;
 
+    private DatabaseReference mRef;
+    public int counterFor = 0;
+
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
     @Override
@@ -107,7 +110,11 @@ public class AddTask extends Fragment {
                 else {
                     try {
                         saveDataToDatabase();
+<<<<<<< HEAD
 
+=======
+                        counterFor = 1;
+>>>>>>> 20bdcb0afbbee33c1a2fc9b9c210c242eca2495a
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
@@ -119,13 +126,34 @@ public class AddTask extends Fragment {
 
     private void saveDataToDatabase() throws InterruptedException {
 
-        DatabaseReference mRef = FirebaseDatabase.getInstance().getReference();
+        mRef = FirebaseDatabase.getInstance().getReference();
 
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                dbCounter = dataSnapshot.child("counter").getValue(String.class);
-                Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
+                if(counterFor == 1) {
+                    dbCounter = dataSnapshot.child("counter").getValue(String.class);
+                    Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
+                    int intCounter = Integer.parseInt(dbCounter);
+                    intCounter++;
+                    String stringCounter = Integer.toString(intCounter);
+                    // устанавливаем значение
+                    mRef.child("tasks").child(stringCounter).child("number").setValue(stringCounter);
+                    mRef.child("tasks").child(stringCounter).child("nameOfTask").setValue(mNameTask);
+                    mRef.child("tasks").child(stringCounter).child("describing").setValue(mDescribingOfTask);
+                    mRef.child("tasks").child(stringCounter).child("Coordinate1").setValue(mCoordinate1);
+                    mRef.child("tasks").child(stringCounter).child("Coordinate2").setValue(mCoordinate2);
+                    mRef.child("tasks").child(stringCounter).child("Equipment").setValue(mEquipment);
+                    mRef.child("tasks").child(stringCounter).child("NaturalConditions").setValue(mNaturalConditions);
+                    mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
+                    mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
+                    mRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);
+                    mRef.child("counter").setValue(stringCounter);
+
+                    mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
+                    counterFor = 0;
+                    Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+                }
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -133,6 +161,7 @@ public class AddTask extends Fragment {
             }
         });
         // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
+<<<<<<< HEAD
         int intCounter = -1;
                 //Integer.parseInt(dbCounter);
         intCounter++;
@@ -155,6 +184,9 @@ public class AddTask extends Fragment {
             String imagePath = "gs://forfindpeople.appspot.com/" + "images/"+ mNameTask + "_" + stringCounter + "_img"; // путь до обложки
             uploadFile(imagePath, selectedImage);
             Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+=======
+
+>>>>>>> 20bdcb0afbbee33c1a2fc9b9c210c242eca2495a
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
