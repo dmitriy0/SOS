@@ -5,27 +5,28 @@
 
     <group android:checkableBehavior="single">
         <item
-            android:id="@+id/nav_authorization"
-            android:icon="@drawable/ic_61457"
-            android:title="Авторизация" />
-        <item
             android:id="@+id/nav_vol"
-            android:icon="@drawable/ic_942799"
-            android:title="Volunteer" />
+            android:icon="@drawable/ic_user_silhouette"
+            android:title="@string/volunteer" />
         <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_25242"
-            android:title="Tasks" />
+            android:title="@string/tasks" />
         <item
             android:id="@+id/nav_map"
             android:icon="@drawable/ic_34250"
-            android:title="Map" />
+            android:title="@string/map" />
         <item
             android:id="@+id/nav_addTasks"
-            android:icon="@drawable/ic_menu_manage"
-            android:title="Добавить задачу" />
+            android:icon="@drawable/ic_add"
+            android:title="@string/new_task" />
+        <item
+            android:id="@+id/nav_exit"
+            android:icon="@drawable/ic_logout"
+            android:title="@string/exit"/>
     </group>
 
+    <!--
     <item android:title="Communicate">
         <menu>
             <item
@@ -38,5 +39,6 @@
                 android:title="Send" />
         </menu>
     </item>
+    -->
 
 </menu>

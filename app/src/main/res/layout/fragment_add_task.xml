@@ -1,86 +1,169 @@
 <?xml version="1.0" encoding="utf-8"?>
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".AddTask">
+    android:background="@drawable/bg_default"
+    tools:context="com.junior.stronger197.sos.AddTask">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <LinearLayout
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <EditText
-            android:id="@+id/nameTask"
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Название задачи" />
+            android:layout_margin="32dp"
+            android:orientation="vertical">
 
-        <EditText
-            android:id="@+id/describingOfTask"
-            android:layout_width="match_parent"
-            android:layout_height="63dp"
-            android:ems="10"
-            android:hint="Описание"
-            android:inputType="textMultiLine" />
+            <EditText
+                android:id="@+id/nameTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu_bold"
+                android:hint="@string/task_title"
+                android:inputType="textPersonName"
+                android:textColor="@android:color/background_light"
+                android:textColorHint="#88FFFFFF"
+                android:textSize="30sp" />
 
-        <EditText
-            android:id="@+id/equipment"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:hint="Необходимое каждому снаряжение"/>
+            <EditText
+                android:id="@+id/describingOfTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu_medium"
+                android:hint="@string/task_desc"
+                android:inputType="textMultiLine"
+                android:textColor="#EEE"
+                android:textColorHint="#88FFFFFF"
+                android:textSize="24sp" />
 
-        <EditText
-            android:id="@+id/naturalConditions"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textMultiLine"
-            android:hint="Природные условия"/>
+            <EditText
+                android:id="@+id/equipment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/task_need_res"
+                android:inputType="textMultiLine"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
 
-        <EditText
-            android:id="@+id/time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Время сбора"
-            android:inputType="time" />
+            <EditText
+                android:id="@+id/naturalConditions"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/task_weather"
+                android:inputType="textMultiLine"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
 
-        <EditText
-            android:id="@+id/date"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:hint="Дата начала задачи"
-            android:inputType="date" />
+            <EditText
+                android:id="@+id/time"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/task_time"
+                android:inputType="time"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
 
-        <EditText
-            android:id="@+id/coordinate1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Координаты 1" />
+            <EditText
+                android:id="@+id/date"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/task_date_start"
+                android:inputType="date"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
 
-        <EditText
-            android:id="@+id/coordinate2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:ems="10"
-            android:inputType="textPersonName"
-            android:hint="Координаты 2" />
+            <EditText
+                android:id="@+id/coordinate1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/coor_1"
+                android:inputType="textPersonName"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
 
-        <Button
-            android:id="@+id/addTask"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Создать задачу" />
-    </LinearLayout>
+            <EditText
+                android:id="@+id/coordinate2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:background="@android:color/transparent"
+                android:ems="10"
+                android:fontFamily="@font/ubuntu"
+                android:hint="@string/coor_2"
+                android:inputType="textPersonName"
+                android:textColor="#DDD"
+                android:textColorHint="#88FFFFFF" />
+
+            <Button
+                android:id="@+id/addImage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="24dp"
+                android:background="@android:color/transparent"
+                android:fontFamily="@font/ubuntu_medium"
+                android:text="@string/task_attach"
+                android:textAlignment="textStart"
+                android:textAllCaps="true"
+                android:textColor="@android:color/background_light"
+                android:textSize="16sp" />
+
+            <ImageView
+                android:id="@+id/attachesImg"
+                android:layout_width="75dp"
+                android:layout_height="75dp"
+                android:layout_marginLeft="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@drawable/image_corner_crop"
+                android:cropToPadding="false"
+                android:maxWidth="75dp"
+                android:maxHeight="75dp"
+                android:scaleType="centerCrop"
+                android:src="@android:color/transparent"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/addTask"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:layout_marginRight="100dp"
+                android:layout_marginBottom="80dp"
+                android:background="@drawable/button_default"
+                android:fontFamily="@font/ubuntu_bold"
+                android:text="@string/task_create"
+                android:textColorHint="#88FFFFFF" />
+        </LinearLayout>
+    </ScrollView>
 
 </FrameLayout>

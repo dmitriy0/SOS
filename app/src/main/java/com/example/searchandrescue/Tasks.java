@@ -3,12 +3,19 @@ package com.example.searchandrescue;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import android.widget.AdapterView;
+import android.widget.TextView;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -34,13 +41,34 @@ public class Tasks extends Fragment {
         super.onCreate(savedInstanceState);
     }
 
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+
         listTasks = (ListView) rootView.findViewById(R.id.discr_for_task);
         mRef = FirebaseDatabase.getInstance().getReference();
+
+        listTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
+                                    long id) {
+                TextView textView = (TextView) itemClicked;
+                String strText = textView.getText().toString(); // получаем текст нажатого элемента
+                //Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
+
+
+                Fragment fragment = new Task();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                Bundle bundle = new Bundle();
+                String valueOfReplace = position+"";
+                bundle.putString("Value", valueOfReplace);
+                fragment.setArguments(bundle);
+            }
+        });
 
         FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
         mRef.addValueEventListener(new ValueEventListener() {
@@ -57,11 +85,18 @@ public class Tasks extends Fragment {
             }
         });
 
+
         return rootView;
 
     }public void updateUI(){
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()), android.R.layout.simple_list_item_1, mTasks);
-        listTasks.setAdapter(adapter);
+
+
+        if(getActivity() != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
+            listTasks.setAdapter(adapter);
+        }
+
+
     }
 
 

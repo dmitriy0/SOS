@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.view.MenuItem;
 
 import java.util.Objects;
 
@@ -42,13 +43,45 @@ public class Authorization extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_authorization, container, false);
 
-        /*
+
         EditText login = (EditText) getActivity().findViewById(R.id.login);
         EditText password = (EditText) getActivity().findViewById(R.id.password);
 
-        setFocusChange(login);
-        setFocusChange(password);
-        */
+        Fragment fragment = new com.example.searchandrescue.Task();
+
+        login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                EditText editText = (EditText) view;
+
+                if (b) {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                    editText.setTextColor(Color.parseColor("#000000"));
+                } else {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                    editText.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                EditText editText = (EditText) view;
+
+                if (b) {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                    editText.setTextColor(Color.parseColor("#000000"));
+                } else {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                    editText.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+
+            }
+        });
+
 
         Button singIn = (Button) rootView.findViewById(R.id.singIn); // кнопка авторизации
         singIn.setOnClickListener(new View.OnClickListener() {
@@ -120,17 +153,19 @@ public class Authorization extends Fragment {
                 }
             }
         };
-
         mAuth.signInWithEmailAndPassword(mLogin, mPassword).addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(getContext(), "Авторизация успешна", Toast.LENGTH_LONG).show();
                     Fragment fragment = new Tasks();
+
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
                     drawer.closeDrawer(GravityCompat.START);
+
+
 
                 }
                 else{
@@ -139,27 +174,5 @@ public class Authorization extends Fragment {
             }
         });
     }
-
-    /*
-    public void setFocusChange(EditText view) {
-
-        view.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View view, boolean b) {
-
-                EditText editText = (EditText) view;
-
-                if (b) {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
-                    editText.setTextColor(Color.parseColor("#000000"));
-                } else {
-                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
-                    editText.setTextColor(Color.parseColor("#FFFFFF"));
-                }
-            }
-        });
-
-    }
-    */
 
 }
