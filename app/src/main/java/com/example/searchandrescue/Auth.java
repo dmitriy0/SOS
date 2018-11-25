@@ -1,6 +1,7 @@
 package com.example.searchandrescue;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -42,6 +43,8 @@ public class Auth extends AppCompatActivity {
 
         setContentView(R.layout.activity_auth);
         Button singIn = (Button) findViewById(R.id.singIn); // кнопка авторизации
+        EditText login = (EditText) findViewById(R.id.login), password = (EditText) findViewById(R.id.password);
+
         singIn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -51,6 +54,39 @@ public class Auth extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(), "Одно из полей не заполненно. Пожалуйста, заполните все поля и повторите отправку", Toast.LENGTH_LONG).show();
                 } else {
                     singInUser();
+                }
+
+            }
+        });
+
+        login.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                EditText editText = (EditText) view;
+
+                if (b) {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                    editText.setTextColor(Color.parseColor("#000000"));
+                } else {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                    editText.setTextColor(Color.parseColor("#FFFFFF"));
+                }
+
+            }
+        });
+        password.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View view, boolean b) {
+
+                EditText editText = (EditText) view;
+
+                if (b) {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_selected));
+                    editText.setTextColor(Color.parseColor("#000000"));
+                } else {
+                    editText.setBackground(getResources().getDrawable(R.drawable.input_default));
+                    editText.setTextColor(Color.parseColor("#FFFFFF"));
                 }
 
             }

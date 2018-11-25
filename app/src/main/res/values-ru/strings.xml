@@ -37,6 +37,8 @@
 
     <string name="coor">Введите координаты</string>
 
+    <string name="exit">Выход</string>
+
     <string-array name="sex">
         <item>Муж</item>
         <item>Жен</item>
