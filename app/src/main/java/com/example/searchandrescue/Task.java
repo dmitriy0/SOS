@@ -1,16 +1,19 @@
 package com.example.searchandrescue;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
-import com.example.searchandrescue.R;
+
 
 import java.util.Objects;
 
@@ -45,7 +48,7 @@ public class Task extends Fragment {
 
         return rootView;
     }
-
+    @SuppressLint("WrongViewCast")
     public void changeText() {
         mNameTask = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.nameFromDatabase)).getText().toString();
         mDescrbingOfTask = ((EditText) getActivity().findViewById(R.id.descridingFromDatabase)).getText().toString();
@@ -55,6 +58,7 @@ public class Task extends Fragment {
         mNaturalConditions = ((EditText) getActivity().findViewById(R.id.naturalConditionsFrom)).getText().toString();
         mTime = ((EditText) getActivity().findViewById(R.id.timeFrom)).getText().toString();
         mDate = ((EditText) getActivity().findViewById(R.id.dateFrom)).getText().toString();
+
     }
 
 }

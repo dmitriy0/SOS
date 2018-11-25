@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.searchandrescue.CircularTransformation;
@@ -151,6 +152,7 @@ public class AddTask extends Fragment {
                     mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
                     counterFor = 0;
                     Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
+                    TextView textView = (TextView) getActivity().findViewById(R.id.textView);
                 }
             }
             @Override
