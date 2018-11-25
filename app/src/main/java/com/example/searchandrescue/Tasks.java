@@ -7,11 +7,15 @@ import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import android.widget.AdapterView;
+
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.widget.AdapterView;
 import android.widget.TextView;
+
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -43,6 +47,7 @@ public class Tasks extends Fragment {
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+
         listTasks = (ListView) rootView.findViewById(R.id.discr_for_task);
         mRef = FirebaseDatabase.getInstance().getReference();
 
@@ -84,7 +89,10 @@ public class Tasks extends Fragment {
         });
 
 
+<<<<<<< HEAD
 
+=======
+>>>>>>> 6d2af6a6f1316c27296482d4ae6b703d7c640fdc
         return rootView;
 
     }public void updateUI(){
