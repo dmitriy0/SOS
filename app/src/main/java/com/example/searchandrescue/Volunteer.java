@@ -1,9 +1,11 @@
 package com.example.searchandrescue;
 
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,10 +23,16 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
@@ -42,6 +50,8 @@ public class Volunteer extends Fragment {
     private String vol_age;
     private  String car_type;
     private String equp;
+    private Uri selectedImage;
+    private ImageView avatar;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
 
 
@@ -136,6 +146,9 @@ public class Volunteer extends Fragment {
         mRef.child("volunter").child(user.getUid()).child("car_name").setValue(car_name);
         mRef.child("volunter").child(user.getUid()).child("age").setValue(vol_age);
         mRef.child("volunter").child(user.getUid()).child("equipment").setValue(equp);
+        String imagePath = "gs://forfindpeople.appspot.com/" + "volunteer/" + user.getUid(); // путь до обложки
+        mRef.child("volunter").child(user.getUid()).child("Photo").setValue(imagePath);
+        uploadFile(imagePath, selectedImage);
         Toast.makeText(getActivity(), "Волонтер успешно создан", Toast.LENGTH_SHORT).show();
     }
 
@@ -164,14 +177,14 @@ public class Volunteer extends Fragment {
 
         super.onActivityResult(requestCode, resultCode, resultIntent);
 
-        ImageView avatar = (ImageView) root.findViewById(R.id.avatar);
+        avatar = (ImageView) root.findViewById(R.id.avatar);
 
         if (resultCode == -1) {
 
             switch (requestCode) {
 
                 case GALLERY_REQUEST:
-                    Uri selectedImage = resultIntent.getData();
+                    selectedImage = resultIntent.getData();
 
                     Picasso.with(getContext())
                             .load(selectedImage)
@@ -186,4 +199,56 @@ public class Volunteer extends Fragment {
     }
 
 
+    private void uploadFile(String path, Uri pathOfFile) {
+        //if there is a file to upload
+        if (pathOfFile != null) {
+            //displaying a progress dialog while upload is going on
+            final ProgressDialog progressDialog = new ProgressDialog(getContext());
+            progressDialog.setTitle("Uploading");
+            progressDialog.show();
+
+            FirebaseStorage storage = FirebaseStorage.getInstance();
+            StorageReference riversRef = storage.getReferenceFromUrl(path);// путь на облаке, куда загружается файл, im - название файла на облаке
+            // в переменной типа Uri filePath хранится путь на устройстве до загружаемого файла
+            riversRef.putFile(pathOfFile)
+                    .addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                            progressDialog.dismiss();
+                            avatar.setImageDrawable(null);
+                            Toast.makeText(getActivity(), "File Uploaded ", Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnFailureListener(new OnFailureListener() {
+                        @Override
+                        public void onFailure(@NonNull Exception exception) {
+                            //if the upload is not successfull
+                            //hiding the progress dialog
+                            progressDialog.dismiss();
+
+                            //and displaying error message
+
+                            //* заменить на активити
+                            Toast.makeText(getActivity(), exception.getMessage(), Toast.LENGTH_LONG).show();
+                        }
+                    })
+                    .addOnProgressListener(new OnProgressListener<UploadTask.TaskSnapshot>() {
+                        @Override
+                        public void onProgress(UploadTask.TaskSnapshot taskSnapshot) {
+                            //calculating progress percentage
+                            double progress = (100.0 * taskSnapshot.getBytesTransferred()) / taskSnapshot.getTotalByteCount();
+
+                            //displaying percentage in progress dialog
+                            progressDialog.setMessage("Uploaded " + ((int) progress) + "%...");
+                        }
+                    });
+        }
+        //if there is not any file
+        else {
+            //you can display an error toast
+        }
+    }
+
+
 }
+
