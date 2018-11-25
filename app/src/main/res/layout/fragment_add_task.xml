@@ -25,7 +25,7 @@
                 android:layout_height="wrap_content"
                 android:background="@android:color/transparent"
                 android:ems="10"
-                android:fontFamily="@font/maven_pro_bold"
+                android:fontFamily="@font/ubuntu_bold"
                 android:hint="@string/task_title"
                 android:inputType="textPersonName"
                 android:textColor="@android:color/background_light"
@@ -39,7 +39,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
-                android:fontFamily="@font/maven_pro_medium"
+                android:fontFamily="@font/ubuntu_medium"
                 android:hint="@string/task_desc"
                 android:inputType="textMultiLine"
                 android:textColor="#EEE"
@@ -53,6 +53,7 @@
                 android:layout_marginTop="16dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/task_need_res"
                 android:inputType="textMultiLine"
                 android:textColor="#DDD"
@@ -65,6 +66,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/task_weather"
                 android:inputType="textMultiLine"
                 android:textColor="#DDD"
@@ -77,10 +79,11 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/task_time"
-                android:textColorHint="#88FFFFFF"
+                android:inputType="time"
                 android:textColor="#DDD"
-                android:inputType="time" />
+                android:textColorHint="#88FFFFFF" />
 
             <EditText
                 android:id="@+id/date"
@@ -89,10 +92,11 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/task_date_start"
-                android:textColorHint="#88FFFFFF"
+                android:inputType="date"
                 android:textColor="#DDD"
-                android:inputType="date" />
+                android:textColorHint="#88FFFFFF" />
 
             <EditText
                 android:id="@+id/coordinate1"
@@ -101,10 +105,11 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/coor_1"
-                android:textColorHint="#88FFFFFF"
+                android:inputType="textPersonName"
                 android:textColor="#DDD"
-                android:inputType="textPersonName" />
+                android:textColorHint="#88FFFFFF" />
 
             <EditText
                 android:id="@+id/coordinate2"
@@ -113,10 +118,11 @@
                 android:layout_marginTop="8dp"
                 android:background="@android:color/transparent"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:hint="@string/coor_2"
-                android:textColorHint="#88FFFFFF"
+                android:inputType="textPersonName"
                 android:textColor="#DDD"
-                android:inputType="textPersonName" />
+                android:textColorHint="#88FFFFFF" />
 
             <Button
                 android:id="@+id/addImage"
@@ -125,7 +131,7 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
                 android:background="@android:color/transparent"
-                android:fontFamily="@font/maven_pro_medium"
+                android:fontFamily="@font/ubuntu_medium"
                 android:text="@string/task_attach"
                 android:textAlignment="textStart"
                 android:textAllCaps="true"
@@ -154,7 +160,7 @@
                 android:layout_marginRight="100dp"
                 android:layout_marginBottom="80dp"
                 android:background="@drawable/button_default"
-                android:fontFamily="@font/maven_pro_bold"
+                android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/task_create"
                 android:textColorHint="#88FFFFFF" />
         </LinearLayout>

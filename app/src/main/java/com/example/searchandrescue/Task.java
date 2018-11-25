@@ -69,6 +69,8 @@ public class Task extends Fragment {
         mTime = (TextView) rootView.findViewById(R.id.timeFrom);
         mDate = (TextView) rootView.findViewById(R.id.dateFrom);
 
+        Button pin = rootView.findViewById(R.id.cektedTask), base = rootView.findViewById(R.id.wentToBase), home = rootView.findViewById(R.id.returnToHome), chat = rootView.findViewById(R.id.chat);
+
         Bundle bundle = getArguments();
         conterOfFragment = "0";
         if(bundle != null){
