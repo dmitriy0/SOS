@@ -23,46 +23,46 @@
             android:id="@+id/nameFromDatabase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
 
         <TextView
             android:id="@+id/descridingFromDatabase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
 
         <TextView
             android:id="@+id/equipmentFromDatabase"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
 
         <TextView
             android:id="@+id/naturalConditionsFrom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
 
         <TextView
             android:id="@+id/timeFrom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
         <TextView
             android:id="@+id/dateFrom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
         <TextView
             android:id="@+id/coordinate1From"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
         <TextView
             android:id="@+id/coordinate2From"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="TextView" />
+            />
 
         <Button
             android:id="@+id/cektedTask"
