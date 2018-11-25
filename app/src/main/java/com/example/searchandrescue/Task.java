@@ -1,4 +1,4 @@
-package com.junior.stronger197.sos;
+package com.example.searchandrescue;
 
 import android.content.Context;
 import android.net.Uri;
@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 
 import com.example.searchandrescue.R;
 
-public class Coordinates extends Fragment {
+public class Task extends Fragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -21,7 +21,8 @@ public class Coordinates extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_coordinates, container, false);
+        return inflater.inflate(R.layout.fragment_task, container, false);
     }
+
 
 }
