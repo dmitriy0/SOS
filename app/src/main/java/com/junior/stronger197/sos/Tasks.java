@@ -25,6 +25,9 @@ public class Tasks extends Fragment {
         // Inflate the layout for this fragment
 
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+
+
+
         return rootView;
 
     }
