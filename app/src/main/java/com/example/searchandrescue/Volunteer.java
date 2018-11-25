@@ -52,8 +52,9 @@ public class Volunteer extends Fragment {
     private String car_seats;
     private String full_name;
     private String vol_age;
-    private  String car_type;
+    private String car_type;
     private String equp;
+    private String telephone;
     private Uri selectedImage;
     private ImageView avatar;
     public int counterFor = 0;
@@ -127,6 +128,7 @@ public class Volunteer extends Fragment {
                 car_type = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_type)).getText().toString();
                 car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
                 equp = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.equipment)).getText().toString();
+                telephone = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.vol_telephone)).getText().toString();
                 if(user == null){
                     Toast.makeText(getActivity(), "Пожалуйста, авторизируйтесь", Toast.LENGTH_LONG).show();
                 }
@@ -163,6 +165,7 @@ public class Volunteer extends Fragment {
                     mRef.child("numberOfPeople").setValue(stringCounter);
                     mRef.child("ratingOfVolonterAchivs").child(stringCounter).setValue("0");
                     mRef.child("ratingOfVolonterNames").child(stringCounter).setValue(full_name);
+                    mRef.child("volunter").child(user.getUid()).child("telephone").setValue(telephone);
                     String imagePath = "gs://forfindpeople.appspot.com/" + "volunteer/" + user.getUid(); // путь до обложки
                     mRef.child("volunter").child(user.getUid()).child("Photo").setValue(imagePath);
                     uploadFile(imagePath, selectedImage);

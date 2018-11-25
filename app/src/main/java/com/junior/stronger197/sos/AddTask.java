@@ -34,7 +34,6 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
-
 import java.io.IOException;
 import java.util.Objects;
 
@@ -57,7 +56,7 @@ public class AddTask extends Fragment {
     private ImageView img;
     private volatile String dbCounter = "";
 
-    private FirebaseAuth mAuth;
+
 
     private DatabaseReference mRef;
     public int counterFor = 0;
@@ -144,6 +143,8 @@ public class AddTask extends Fragment {
                     mRef.child("tasks").child(stringCounter).child("NaturalConditions").setValue(mNaturalConditions);
                     mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
                     mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
+                    mRef.child("tasks").child(stringCounter).child("someTask").child("0").setValue("Тестовая задача");
+                    mRef.child("tasks").child(stringCounter).child("someTaskValue").setValue("-1");
 
                     String imagePath = "gs://forfindpeople.appspot.com/" + "images/" + mNameTask + "_" + stringCounter + "_img"; // путь до обложки
                     mRef.child("tasks").child(stringCounter).child("UriForPhoto").setValue(imagePath);
@@ -152,7 +153,6 @@ public class AddTask extends Fragment {
                     mRef.child("allTasks").child(stringCounter).setValue(mNameTask);
                     counterFor = 0;
                     Toast.makeText(getActivity(), "Задача успешно создана", Toast.LENGTH_SHORT).show();
-                    TextView textView = (TextView) getActivity().findViewById(R.id.textView);
                 }
             }
             @Override
@@ -160,10 +160,6 @@ public class AddTask extends Fragment {
                 Toast.makeText(getActivity(), "Error" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
-        // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-
-
-
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
