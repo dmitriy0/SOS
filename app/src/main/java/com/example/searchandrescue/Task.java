@@ -39,6 +39,7 @@ public class Task extends Fragment {
     private TextView mDate;
     public String conterOfFragment = "0";
 
+
     private DatabaseReference mRef;
     FirebaseUser user = FirebaseAuth.getInstance().getCurrentUser();
 
@@ -92,6 +93,14 @@ public class Task extends Fragment {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
                 Toast.makeText(getActivity(), "Error" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button cektedTask = (Button) rootView.findViewById(R.id.cektedTask);
+        cektedTask.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //mRef.child("ratingOfVolunteerCounter").child(stringCounter).child("Date").setValue(mDate);
             }
         });
     }
