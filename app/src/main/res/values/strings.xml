@@ -20,8 +20,9 @@
     <string name="avatar">Avatar:</string>
     <string name="age">Age:</string>
     <string name="sex">Sex:</string>
-    <string name="auto_set">Car</string>
-    <string name="auto_name">Car Name</string>
+    <string name="auto_set">Transport</string>
+    <string name="auto_type">Type of Transport</string>
+    <string name="auto_name">Transport Name</string>
     <string name="register_sign">Register sign</string>
     <string name="seats">Seats (free)</string>
     <string name="equipment">Equipment</string>
