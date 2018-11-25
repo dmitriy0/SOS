@@ -95,7 +95,7 @@ public class Tasks extends Fragment {
 
 
         if(getActivity() != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mTasks);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
             listTasks.setAdapter(adapter);
         }
 

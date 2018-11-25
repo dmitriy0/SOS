@@ -23,7 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
-                android:fontFamily="@font/maven_pro_bold"
+                android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/auth"
                 android:textColor="@android:color/background_light"
                 android:textSize="26sp" />
@@ -34,7 +34,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="24dp"
-                android:fontFamily="@font/maven_pro_bold"
+                android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/login"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp" />
@@ -47,6 +47,7 @@
                 android:layout_marginRight="60dp"
                 android:background="@drawable/input_default"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:inputType="textEmailAddress"
                 android:paddingLeft="30dp"
                 android:paddingTop="16dp"
@@ -59,7 +60,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="16dp"
                 android:layout_marginTop="16dp"
-                android:fontFamily="@font/maven_pro_bold"
+                android:fontFamily="@font/ubuntu_bold"
                 android:text="@string/pass"
                 android:textColor="@android:color/background_light"
                 android:textSize="20sp" />
@@ -72,6 +73,7 @@
                 android:layout_marginRight="60dp"
                 android:background="@drawable/input_default"
                 android:ems="10"
+                android:fontFamily="@font/ubuntu"
                 android:inputType="textPassword"
                 android:paddingLeft="30dp"
                 android:paddingTop="16dp"
@@ -85,6 +87,7 @@
                 android:layout_marginTop="32dp"
                 android:layout_marginRight="72dp"
                 android:background="@drawable/button_default"
+                android:fontFamily="@font/ubuntu_medium"
                 android:text="Войти" />
 
             <Button
@@ -94,6 +97,7 @@
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="72dp"
                 android:background="@drawable/button_default"
+                android:fontFamily="@font/ubuntu_medium"
                 android:text="Зарегестрироваться" />
         </LinearLayout>
     </ScrollView>
