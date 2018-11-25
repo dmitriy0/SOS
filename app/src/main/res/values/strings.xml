@@ -42,6 +42,8 @@
 
     <string name="exit">Exit</string>
 
+    <string name="sex_and_age">Sex and Age:</string>
+
     <string name="coor">Enter Coordinates</string>
 
     <string-array name="sex">
