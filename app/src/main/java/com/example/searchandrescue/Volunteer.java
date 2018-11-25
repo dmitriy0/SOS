@@ -1,37 +1,32 @@
 package com.example.searchandrescue;
 
-import android.content.Context;
-import android.content.SharedPreferences;
+import android.content.Intent;
 import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.searchandrescue.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
+import com.squareup.picasso.Picasso;
 
-import java.util.List;
 import java.util.Objects;
+
+import static android.app.Activity.RESULT_OK;
 
 public class Volunteer extends Fragment {
 
@@ -42,9 +37,16 @@ public class Volunteer extends Fragment {
     private String car_seats;
     private String full_name;
     private String vol_age;
+    private  String car_type;
     private String equp;
-    private String[] array;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
+
+
+    static final int GALLERY_REQUEST = 1;
+
+    View root;
+    LayoutInflater inflate;
+    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
@@ -54,9 +56,23 @@ public class Volunteer extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_volunteer, container, false);
         final EditText fullName = rootView.findViewById(R.id.vol_full_name), age = rootView.findViewById(R.id.vol_age);
-        Spinner spinner = rootView.findViewById(R.id.spinner);
         final CheckBox car = rootView.findViewById(R.id.has_car);
         Button addVol =(Button) rootView.findViewById(R.id.addVol);
+        ImageView avatar = rootView.findViewById(R.id.avatar);
+
+        avatar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent gallery = new Intent(Intent.ACTION_PICK);
+                gallery.setType("image/*");
+                startActivityForResult(gallery, GALLERY_REQUEST);
+
+            }
+        });
+
+        root = rootView;
+        inflate = inflater;
         car.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
@@ -68,31 +84,19 @@ public class Volunteer extends Fragment {
                     //car_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_name)).getText().toString();
                     //car_reg_sign = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_reg_sign)).getText().toString();
                     //car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
+                    ((EditText) getActivity().findViewById(R.id.car_type)).setVisibility(View.VISIBLE);
+
                 } else {
 
                     ((EditText) getActivity().findViewById(R.id.car_name)).setVisibility(View.GONE);
                     ((EditText) getActivity().findViewById(R.id.car_reg_sign)).setVisibility(View.GONE);
                     ((EditText) getActivity().findViewById(R.id.car_seats)).setVisibility(View.GONE);
+                    ((EditText) getActivity().findViewById(R.id.car_type)).setVisibility(View.GONE);
 
                 }
             }
         });
 
-        String[] array = getResources().getStringArray(R.array.sex);
-        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-
-                ((TextView) adapterView.getChildAt(0)).setTextColor(Color.WHITE);
-                ((TextView) adapterView.getChildAt(0)).setTextSize(16);
-
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> adapterView) {
-
-            }
-        });
 
         setFocusChange(fullName);
         setFocusChange(age);
@@ -103,6 +107,7 @@ public class Volunteer extends Fragment {
                 vol_age = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.vol_age)).getText().toString();
                 car_name = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_name)).getText().toString();
                 car_reg_sign = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_reg_sign)).getText().toString();
+                car_type = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_type)).getText().toString();
                 car_seats = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.car_seats)).getText().toString();
                 equp = ((EditText) Objects.requireNonNull(getActivity()).findViewById(R.id.equipment)).getText().toString();
                 if(user == null){
@@ -122,12 +127,12 @@ public class Volunteer extends Fragment {
         // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
         // устанавливаем значение
         mRef.child("volunter").child(user.getUid()).child("full_name").setValue(full_name);
+        mRef.child("volunter").child(user.getUid()).child("car_type").setValue(car_type);
         mRef.child("volunter").child(user.getUid()).child("car_sign_in").setValue(car_reg_sign);
         mRef.child("volunter").child(user.getUid()).child("car_seats").setValue(car_seats);
         mRef.child("volunter").child(user.getUid()).child("car_name").setValue(car_name);
         mRef.child("volunter").child(user.getUid()).child("age").setValue(vol_age);
         mRef.child("volunter").child(user.getUid()).child("equipment").setValue(equp);
-        //mRef.child("volunter").child(stringCounter).child("sex").setValue(array);
         Toast.makeText(getActivity(), "Волонтер успешно создан", Toast.LENGTH_SHORT).show();
     }
 
@@ -148,6 +153,31 @@ public class Volunteer extends Fragment {
                 }
             }
         });
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {
+
+        super.onActivityResult(requestCode, resultCode, resultIntent);
+
+        ImageView avatar = (ImageView) root.findViewById(R.id.avatar);
+
+        if (resultCode == -1) {
+
+            switch (requestCode) {
+
+                case GALLERY_REQUEST:
+                    Uri selectedImage = resultIntent.getData();
+
+                    Picasso.with(getContext())
+                            .load(selectedImage)
+                            .transform(new CircularTransformation())
+                            .into(avatar);
+
+
+            }
+
+        }
 
     }
 
