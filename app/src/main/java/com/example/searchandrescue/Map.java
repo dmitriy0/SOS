@@ -37,7 +37,21 @@ public class Map extends Fragment {
                 startActivity(intent);
             }
         });
+
+        Button sendOnCloud2 = (Button) rootView.findViewById(R.id.button2);
+        sendOnCloud.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                coords = ((EditText) getActivity().findViewById(R.id.textCoordinates)).getText().toString();
+                Intent intent = new Intent();
+                intent.setAction(Intent.ACTION_VIEW);
+                intent.setData(Uri.parse("geo:"+coords));
+                startActivity(intent);
+            }
+        });
         return rootView;
+
+
     }
 
 }
