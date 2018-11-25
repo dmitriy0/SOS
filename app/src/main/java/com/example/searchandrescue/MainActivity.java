@@ -15,7 +15,10 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 
-
+import com.junior.stronger197.sos.AddTask;
+import com.junior.stronger197.sos.Blog;
+import com.junior.stronger197.sos.Coordinates;
+import com.junior.stronger197.sos.Task;
 import com.junior.stronger197.sos.Tasks;
 import com.junior.stronger197.sos.Volunteer;
 
@@ -118,6 +121,9 @@ public class MainActivity extends AppCompatActivity
         }
         else if (id == R.id.nav_map) {
             fragment = new Map();
+        }
+        else if(id == R.id.nav_addTasks){
+            fragment = new AddTask();
         }
         else{
 
