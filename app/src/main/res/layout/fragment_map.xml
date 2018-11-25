@@ -4,31 +4,48 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_default"
     tools:context=".Map"
     tools:layout_editor_absoluteY="81dp">
 
     <!-- TODO: Update blank fragment layout -->
 
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="3dp"
-        android:text="Карта"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/textCoordinates"
-        app:layout_constraintTop_toTopOf="parent" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_margin="48dp"
+        android:gravity="center_vertical|center"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="32dp"
+        tools:layout_editor_absoluteY="32dp">
 
-    <EditText
-        android:id="@+id/textCoordinates"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginStart="2dp"
-        android:layout_marginEnd="70dp"
-        android:layout_marginBottom="2dp"
-        android:hint="Введите координаты"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/button"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        <EditText
+            android:id="@+id/textCoordinates"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="2dp"
+            android:layout_marginBottom="2dp"
+            android:background="@android:color/transparent"
+            android:fontFamily="@font/maven_pro"
+            android:hint="@string/coor"
+            android:textAlignment="center"
+            android:textColor="@android:color/background_light"
+            android:textColorHint="#88FFFFFF"
+            app:layout_constraintBottom_toBottomOf="@+id/button"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:background="@drawable/button_default"
+            android:fontFamily="@font/maven_pro_bold"
+            android:text="@string/map"
+            android:textAlignment="center"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </LinearLayout>
+
 </android.support.constraint.ConstraintLayout>
