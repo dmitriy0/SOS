@@ -112,6 +112,7 @@ public class AddTask extends Fragment {
             mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
             mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
             mRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);
+            mRef.child("tasks").child(stringCounter).child("UriForPhoto").setValue(mDate);
             mRef.child("counter").setValue(stringCounter);
 
             mRef.child("allTasks").child(stringCounter).setValue(mNameTask);

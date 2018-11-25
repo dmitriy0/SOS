@@ -21,6 +21,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import android.view.MenuItem;
 
 import java.util.Objects;
 
@@ -120,17 +121,19 @@ public class Authorization extends Fragment {
                 }
             }
         };
-
         mAuth.signInWithEmailAndPassword(mLogin, mPassword).addOnCompleteListener(Objects.requireNonNull(getActivity()), new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()) {
                     Toast.makeText(getContext(), "Авторизация успешна", Toast.LENGTH_LONG).show();
                     Fragment fragment = new Tasks();
+
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     DrawerLayout drawer = (DrawerLayout) getActivity().findViewById(R.id.drawer_layout);
                     drawer.closeDrawer(GravityCompat.START);
+
+
 
                 }
                 else{
