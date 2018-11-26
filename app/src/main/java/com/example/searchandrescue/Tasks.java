@@ -100,8 +100,7 @@ public class Tasks extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
                 mTasks = dataSnapshot.child("allTasks").getValue(t);
-
-                //updateUI();
+                updateUI();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

@@ -125,8 +125,8 @@ public class Volunteer extends Fragment {
                     Toast.makeText(getActivity(), "Пожалуйста, авторизируйтесь", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    counterFor = 1;
                     saveDataToDatabase();
+                    counterFor = 1;
                 }
             }
             });
@@ -140,12 +140,13 @@ public class Volunteer extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (counterFor == 1) {
+                    dbCounter = dataSnapshot.child("numberOfPeople").getValue(String.class);
                     Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
-                    //int intCounter = Integer.parseInt(dbCounter);
-                    int intCounter = 0;
+                    int intCounter = Integer.parseInt(dbCounter);
                     intCounter++;
                     String stringCounter = Integer.toString(intCounter);
                     // устанавливаем значение
+                    mRef.child("Ids").child(stringCounter).setValue(user.getUid());
                     mRef.child("volunter").child(user.getUid()).child("full_name").setValue(full_name);
                     mRef.child("volunter").child(user.getUid()).child("car_type").setValue(car_type);
                     mRef.child("volunter").child(user.getUid()).child("car_sign_in").setValue(car_reg_sign);

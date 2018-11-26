@@ -21,19 +21,20 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.junior.stronger197.sos.AddTask;
 
 import java.util.List;
 import java.util.Objects;
 
 public class Volonters2 extends Fragment {
     private DatabaseReference mRef;
+    public String v;
     private List<String> mVolonters;
     ListView listVolonters;
     private String counter = "-1";
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
+    public String number_volonter;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -44,9 +45,9 @@ public class Volonters2 extends Fragment {
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                counter = dataSnapshot.child("counter").getValue(String.class);
+                counter = dataSnapshot.child("numberOfPeople").getValue(String.class);
                 if("-1".equals(counter)){
-                    Fragment fragment = new AddTask();
+                    Fragment fragment = new Volunteer();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
                     Toast.makeText(getActivity(), "Нет Волонтеров", Toast.LENGTH_SHORT).show();
@@ -75,13 +76,26 @@ public class Volonters2 extends Fragment {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString(); // получаем текст нажатого элемента
                 //Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
-                Fragment fragment = new Profile();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                Bundle bundle = new Bundle();
-                String valueOfReplace = position+"";
-                bundle.putString("Value", valueOfReplace);
-                fragment.setArguments(bundle);
+                number_volonter = position+"";
+                mRef = FirebaseDatabase.getInstance().getReference();
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        v = dataSnapshot.child("Ids").child(number_volonter).getValue(String.class);
+                        Fragment fragment = new Profile();
+                        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        Bundle bundle = new Bundle();
+                        String valueOfReplace = number_volonter;
+                        bundle.putString("ForProfile", v);
+                        fragment.setArguments(bundle);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getActivity(), "Error cod" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
