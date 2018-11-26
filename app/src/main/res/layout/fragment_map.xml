@@ -11,13 +11,20 @@
     <!-- TODO: Update blank fragment layout -->
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:id="@+id/linearLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
         android:layout_margin="48dp"
+        android:layout_marginStart="48dp"
+        android:layout_marginTop="48dp"
+        android:layout_marginEnd="48dp"
+        android:layout_marginBottom="48dp"
         android:gravity="center_vertical|center"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="32dp"
-        tools:layout_editor_absoluteY="32dp">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
         <EditText
             android:id="@+id/textCoordinates"
@@ -26,7 +33,7 @@
             android:layout_marginStart="2dp"
             android:layout_marginBottom="2dp"
             android:background="@android:color/transparent"
-            android:fontFamily="@font/maven_pro"
+            android:fontFamily="@font/ubuntu"
             android:hint="@string/coor"
             android:textAlignment="center"
             android:textColor="@android:color/background_light"
@@ -41,17 +48,20 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:background="@drawable/button_default"
-            android:fontFamily="@font/maven_pro_bold"
+            android:fontFamily="@font/ubuntu_bold"
             android:text="@string/map"
             android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
+<<<<<<< HEAD
         <Button
             android:id="@+id/button2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="Button" />
+=======
+>>>>>>> 7e7a61f2d434a107de1e42ecaef937305c2e99ca
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>

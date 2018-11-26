@@ -39,6 +39,13 @@
 
     <string name="exit">Выход</string>
 
+    <string name="sex_and_age">Пол и Возраст:</string>
+
+    <string name="task_fix">Закрепиться за заданием</string>
+    <string name="task_base_arrived">Прибыл на базу</string>
+    <string name="task_home_arrived">Прибыл домой</string>
+    <string name="chat">Чат</string>
+
     <string-array name="sex">
         <item>Муж</item>
         <item>Жен</item>

@@ -42,6 +42,13 @@
 
     <string name="exit">Exit</string>
 
+    <string name="sex_and_age">Sex and Age:</string>
+
+    <string name="task_fix">Fix the Task</string>
+    <string name="task_base_arrived">Arrived at the Base</string>
+    <string name="task_home_arrived">Arrived at home</string>
+    <string name="chat">Chat</string>
+
     <string name="coor">Enter Coordinates</string>
 
     <string-array name="sex">
