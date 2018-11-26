@@ -150,6 +150,9 @@ public class MainActivity extends AppCompatActivity
             finish();
 
         }
+        else if(id == R.id.volonters){
+            fragment = new Volonters2();
+        }
         else{
 
         }

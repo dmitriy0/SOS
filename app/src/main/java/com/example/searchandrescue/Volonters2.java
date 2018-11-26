@@ -21,39 +21,36 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
-import com.junior.stronger197.sos.AddTask;
 
 import java.util.List;
+import java.util.Objects;
 
-public class Tasks extends Fragment {
-
+public class Volonters2 extends Fragment {
     private DatabaseReference mRef;
-    private List<String> mTasks;
-
-    private ListView listTasks;
+    public String v;
+    private List<String> mVolonters;
+    ListView listVolonters;
     private String counter = "-1";
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
     }
-
+    public String number_volonter;
 
     @Override
-    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+        View rootView = inflater.inflate(R.layout.fragment_volonters2, container, false);
         mRef = FirebaseDatabase.getInstance().getReference();
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                counter = dataSnapshot.child("counter").getValue(String.class);
+                counter = dataSnapshot.child("numberOfPeople").getValue(String.class);
                 if("-1".equals(counter)){
-                    Fragment fragment = new AddTask();
+                    Fragment fragment = new Volunteer();
                     FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                     fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                    Toast.makeText(getActivity(), "Нет задач", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getActivity(), "Нет Волонтеров", Toast.LENGTH_SHORT).show();
                 }
                 else {
                     checked();
@@ -66,31 +63,39 @@ public class Tasks extends Fragment {
 
             }
         });
-        listTasks = (ListView) rootView.findViewById(R.id.discr_for_task);
-
-
-
+        listVolonters = (ListView) rootView.findViewById(R.id.discr_for_volonters);
         return rootView;
-
     }
-
     private void checked(){
         mRef = FirebaseDatabase.getInstance().getReference();
 
-        listTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        listVolonters.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View itemClicked, int position,
                                     long id) {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString(); // получаем текст нажатого элемента
                 //Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
-                Fragment fragment = new Task();
-                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
-                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
-                Bundle bundle = new Bundle();
-                String valueOfReplace = position+"";
-                bundle.putString("Value", valueOfReplace);
-                fragment.setArguments(bundle);
+                number_volonter = position+"";
+                mRef = FirebaseDatabase.getInstance().getReference();
+                mRef.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        v = dataSnapshot.child("Ids").child(number_volonter).getValue(String.class);
+                        Fragment fragment = new Profile();
+                        FragmentManager fragmentManager = Objects.requireNonNull(getActivity()).getSupportFragmentManager();
+                        fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                        Bundle bundle = new Bundle();
+                        String valueOfReplace = number_volonter;
+                        bundle.putString("ForProfile", v);
+                        fragment.setArguments(bundle);
+                    }
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+                        Toast.makeText(getActivity(), "Error cod" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+                    }
+                });
+
             }
         });
 
@@ -99,7 +104,7 @@ public class Tasks extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
-                mTasks = dataSnapshot.child("allTasks").getValue(t);
+                mVolonters = dataSnapshot.child("ratingOfVolonterNames").getValue(t);
                 updateUI();
             }
             @Override
@@ -108,18 +113,10 @@ public class Tasks extends Fragment {
             }
         });
     }
-
     public void updateUI(){
-
-
-        if(getActivity() != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
-            listTasks.setAdapter(adapter);
+        if (getActivity() != null) {
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(Objects.requireNonNull(Objects.requireNonNull(getActivity()).getBaseContext()),  R.layout.list_text_view, mVolonters);
+            listVolonters.setAdapter(adapter);
         }
-
-
     }
-
-
-
 }

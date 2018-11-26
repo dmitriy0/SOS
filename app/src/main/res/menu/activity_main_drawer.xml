@@ -9,6 +9,9 @@
             android:icon="@drawable/ic_user_silhouette"
             android:title="@string/volunteer" />
         <item
+            android:id="@+id/volonters"
+            android:title="Волонтеры"/>
+        <item
             android:id="@+id/nav_tasks"
             android:icon="@drawable/ic_25242"
             android:title="@string/tasks" />

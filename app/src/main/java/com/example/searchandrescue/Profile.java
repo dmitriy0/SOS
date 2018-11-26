@@ -54,7 +54,6 @@ public class Profile extends Fragment {
             valueAfterBlog1 = bundle.getString("ForProfileValue1", "0");
             valueAfterBlog2 = bundle.getString("ForProfileValue2", "0");
         }
-
         mNameTask = (TextView) rootView.findViewById(R.id.prof_name);
         mTelephone = (TextView) rootView.findViewById(R.id.prof_telephone);
         mSex = (TextView) rootView.findViewById(R.id.prof_sex_age);
