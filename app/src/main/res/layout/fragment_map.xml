@@ -54,14 +54,7 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-<<<<<<< HEAD
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Button" />
-=======
->>>>>>> 7e7a61f2d434a107de1e42ecaef937305c2e99ca
+
     </LinearLayout>
 
 </android.support.constraint.ConstraintLayout>
