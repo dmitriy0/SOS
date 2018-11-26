@@ -10,17 +10,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-
-import android.widget.ArrayAdapter;
-
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Spinner;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.tasks.OnFailureListener;
@@ -40,9 +34,6 @@ import com.squareup.picasso.Picasso;
 
 import java.util.Objects;
 
-import static android.app.Activity.RESULT_OK;
-import static android.content.Context.SEARCH_SERVICE;
-
 public class Volunteer extends Fragment {
 
     private FirebaseAuth mAuth;
@@ -57,6 +48,7 @@ public class Volunteer extends Fragment {
     private String telephone;
     private Uri selectedImage;
     private ImageView avatar;
+    String dbCounter;
     public int counterFor = 0;
     FirebaseUser user = mAuth.getInstance().getCurrentUser();
 
@@ -133,8 +125,8 @@ public class Volunteer extends Fragment {
                     Toast.makeText(getActivity(), "Пожалуйста, авторизируйтесь", Toast.LENGTH_LONG).show();
                 }
                 else {
-                    saveDataToDatabase();
                     counterFor = 1;
+                    saveDataToDatabase();
                 }
             }
             });
@@ -148,9 +140,9 @@ public class Volunteer extends Fragment {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 if (counterFor == 1) {
-                    String dbCounter = dataSnapshot.child("numberOfPeople").getValue(String.class);
                     Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
-                    int intCounter = Integer.parseInt(dbCounter);
+                    //int intCounter = Integer.parseInt(dbCounter);
+                    int intCounter = 0;
                     intCounter++;
                     String stringCounter = Integer.toString(intCounter);
                     // устанавливаем значение

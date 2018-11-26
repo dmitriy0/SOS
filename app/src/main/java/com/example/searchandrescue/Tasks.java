@@ -101,7 +101,7 @@ public class Tasks extends Fragment {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
                 mTasks = dataSnapshot.child("allTasks").getValue(t);
 
-                updateUI();
+                //updateUI();
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
@@ -114,7 +114,7 @@ public class Tasks extends Fragment {
 
 
         if(getActivity() != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.li, mTasks);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
             listTasks.setAdapter(adapter);
         }
 
