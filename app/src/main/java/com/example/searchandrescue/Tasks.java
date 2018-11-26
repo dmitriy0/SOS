@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -113,7 +114,7 @@ public class Tasks extends Fragment {
 
 
         if(getActivity() != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.li, mTasks);
             listTasks.setAdapter(adapter);
         }
 
