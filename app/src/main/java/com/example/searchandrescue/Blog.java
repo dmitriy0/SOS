@@ -44,7 +44,9 @@ public class Blog extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         View rootView = inflater.inflate(R.layout.fragment_blog, container, false);
+
         listTasks = (ListView) rootView.findViewById(R.id.discr_for_task_my);
         Bundle bundle = getArguments();
         if(bundle != null){
@@ -66,6 +68,7 @@ public class Blog extends Fragment {
                 Toast.makeText(getActivity(), "Error cod" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
+
 
         Button back = (Button) rootView.findViewById(R.id.back3);
         back.setOnClickListener(new View.OnClickListener() {

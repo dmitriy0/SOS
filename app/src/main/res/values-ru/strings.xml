@@ -13,6 +13,7 @@
 
     <string name="full_name">ФИО:</string>
     <string name="avatar">Аватар:</string>
+    <string name="tel">Телефон:</string>
     <string name="age">Возраст:</string>
     <string name="sex">Пол:</string>
     <string name="auto_set">Транспорт</string>

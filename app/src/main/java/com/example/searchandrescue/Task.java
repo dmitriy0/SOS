@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
@@ -127,7 +128,7 @@ public class Task extends Fragment {
             }
         });
 
-        Button back = (Button) rootView.findViewById(R.id.back2);
+        ImageView back = (ImageView) rootView.findViewById(R.id.back2);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -151,12 +152,12 @@ public class Task extends Fragment {
                     //Toast.makeText(getActivity(), dbCounter, Toast.LENGTH_SHORT).show();
                     mNameTask.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("nameOfTask").getValue(String.class));
                     mDescrbingOfTask.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("describing").getValue(String.class));
-                    mCoordiinate1.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("Coordinate1").getValue(String.class));
-                    mCoordinate2.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("Coordinate2").getValue(String.class));
-                    mEquipment.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("Equipment").getValue(String.class));
-                    mNaturalConditions.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("NaturalConditions").getValue(String.class));
-                    mTime.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("time").getValue(String.class));
-                    mDate.setText(dataSnapshot.child("tasks").child(conterOfFragment).child("Date").getValue(String.class));
+                    mCoordiinate1.setText(getString(R.string.coor_1) + ": " +dataSnapshot.child("tasks").child(conterOfFragment).child("Coordinate1").getValue(String.class));
+                    mCoordinate2.setText(getString(R.string.coor_2) + ": " + dataSnapshot.child("tasks").child(conterOfFragment).child("Coordinate2").getValue(String.class));
+                    mEquipment.setText(getString(R.string.equipment) + ": " + dataSnapshot.child("tasks").child(conterOfFragment).child("Equipment").getValue(String.class));
+                    mNaturalConditions.setText(getString(R.string.task_weather) + ": " + dataSnapshot.child("tasks").child(conterOfFragment).child("NaturalConditions").getValue(String.class));
+                    mTime.setText(getString(R.string.task_time) + ": " + dataSnapshot.child("tasks").child(conterOfFragment).child("time").getValue(String.class));
+                    mDate.setText(getString(R.string.task_date_start) + ": " + dataSnapshot.child("tasks").child(conterOfFragment).child("Date").getValue(String.class));
                     stringCounter = dataSnapshot.child("volunter").child(user.getUid()).child("numberOfVolunter").getValue(String.class);
                     nowNumber = dataSnapshot.child("ratingOfVolonterAchivs").child(stringCounter).getValue(String.class);
             }
