@@ -1,5 +1,6 @@
 package com.example.searchandrescue;
 
+import android.media.Image;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
@@ -8,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -57,7 +59,7 @@ public class Profile extends Fragment {
 
         mNameTask = (TextView) rootView.findViewById(R.id.prof_name);
         mTelephone = (TextView) rootView.findViewById(R.id.prof_telephone);
-        mSex = (TextView) rootView.findViewById(R.id.prof_sex_age);
+        mSex = (TextView) rootView.findViewById(R.id.prof_sex);
         mCarTupe = (TextView) rootView.findViewById(R.id.prof_car_type);
         mCarName = (TextView) rootView.findViewById(R.id.prof_car_name);
         mCarSign = (TextView) rootView.findViewById(R.id.prof_car_sign);
@@ -67,7 +69,7 @@ public class Profile extends Fragment {
 
         changeText();
 
-        Button back = (Button) rootView.findViewById(R.id.back5);
+        ImageView back = (ImageView) rootView.findViewById(R.id.back6);
         back.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -91,15 +93,15 @@ public class Profile extends Fragment {
         mRef.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                mNameTask.setText(dataSnapshot.child("volunter").child(idUser).child("full_name").getValue(String.class));
-                mTelephone.setText(dataSnapshot.child("volunter").child(idUser).child("telephone").getValue(String.class));
-                mSex.setText(dataSnapshot.child("volunter").child(idUser).child("coordinate").getValue(String.class));
+                mNameTask.setText(getString(R.string.full_name) + " " + dataSnapshot.child("volunter").child(idUser).child("full_name").getValue(String.class));
+                mTelephone.setText(getString(R.string.tel) + " " + dataSnapshot.child("volunter").child(idUser).child("telephone").getValue(String.class));
+                mSex.setText(getString(R.string.sex) + " " + dataSnapshot.child("volunter").child(idUser).child("coordinate").getValue(String.class));
                 mCarTupe.setText(dataSnapshot.child("volunter").child(idUser).child("car_type").getValue(String.class));
                 mCarName.setText(dataSnapshot.child("volunter").child(idUser).child("car_name").getValue(String.class));
                 mCarSign.setText(dataSnapshot.child("volunter").child(idUser).child("car_sign_in").getValue(String.class));
                 mCarSeats.setText(dataSnapshot.child("volunter").child(idUser).child("car_seats").getValue(String.class));
-                mEquip.setText(dataSnapshot.child("volunter").child(idUser).child("equipment").getValue(String.class));
-                mAge.setText(dataSnapshot.child("volunter").child(idUser).child("age").getValue(String.class));
+                mEquip.setText(getString(R.string.equipment) + ": " + dataSnapshot.child("volunter").child(idUser).child("equipment").getValue(String.class));
+                mAge.setText(getString(R.string.age) + " " + dataSnapshot.child("volunter").child(idUser).child("age").getValue(String.class));
             }
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {

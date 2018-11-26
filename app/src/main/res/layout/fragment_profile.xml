@@ -8,254 +8,249 @@
 
     <!-- TODO: Update blank fragment layout -->
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="#FFF">
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:layout_width="match_parent"
+        <ImageView
+            android:id="@+id/back6"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="32dp"
-            android:layout_marginTop="64dp"
-            android:layout_marginRight="32dp"
-            android:orientation="vertical">
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ic_left_arrow" />
 
-            <android.support.constraint.ConstraintLayout
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#FFF">
+
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="32dp"
+                android:layout_marginRight="32dp"
+                android:orientation="vertical">
 
-                <LinearLayout
+                <android.support.constraint.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical">
+                    android:layout_height="match_parent">
 
-                    <TextView
-                        android:id="@+id/textView21"
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:text="@string/full_name"
-                        android:textColor="@android:color/black"
-                        android:textSize="20sp"
-                        android:textStyle="bold" />
+                        android:layout_height="match_parent"
+                        android:orientation="vertical">
 
-                    <TextView
-                        android:id="@+id/prof_name"
+                        <TextView
+                            android:id="@+id/textView21"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu_medium"
+                            android:text="@string/full_name"
+                            android:textColor="@android:color/black"
+                            android:textSize="20sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/prof_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="TextView"
+                            android:textColor="#111"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="8dp" />
+
+                        <TextView
+                            android:id="@+id/prof_age"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="TextView"
+                            android:textColor="#111"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="8dp" />
+
+                        <TextView
+                            android:id="@+id/prof_sex"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="TextView"
+                            android:textColor="#111"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="8dp" />
+
+                        <TextView
+                            android:id="@+id/prof_telephone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="TextView"
+                            android:textColor="#111"
+                            android:textSize="16sp"
+                            app:layout_constraintStart_toStartOf="parent"
+                            tools:layout_editor_absoluteY="8dp" />
+
+                    </LinearLayout>
+
+                    <ImageView
+                        android:id="@+id/prof_avatar"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="TextView"
-                        android:textColor="#111"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="8dp" />
-                    <TextView
-                        android:id="@+id/prof_age"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="TextView"
-                        android:textColor="#111"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="8dp" />
-                    <TextView
-                        android:id="@+id/prof_telephone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="TextView"
-                        android:textColor="#111"
-                        android:textSize="16sp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        tools:layout_editor_absoluteY="8dp" />
-                </LinearLayout>
+                        android:layout_height="0dp"
+                        android:scaleType="fitEnd"
+                        android:src="@android:color/transparent"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:srcCompat="@android:color/transparent" />
+                </android.support.constraint.ConstraintLayout>
 
-                <ImageView
-                    android:id="@+id/prof_avatar"
-                    android:layout_width="wrap_content"
-                    android:layout_height="0dp"
-                    android:scaleType="fitEnd"
-                    android:src="@android:color/transparent"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"
-                    app:srcCompat="@android:color/transparent" />
-            </android.support.constraint.ConstraintLayout>
+                <!-- TODO: АХТУНГ: КАРТОЧКА ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАЛИЧИИ АВТОМОБИЛЯ -->
 
-            <TextView
-                android:id="@+id/textView23"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:fontFamily="@font/ubuntu_medium"
-                android:text="@string/sex_and_age"
-                android:textColor="@android:color/black"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/prof_sex_age"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:fontFamily="@font/ubuntu"
-                android:text="TextView"
-                android:textColor="#111"
-                android:textSize="16sp"
-                app:layout_constraintStart_toStartOf="parent"
-                tools:layout_editor_absoluteY="8dp" />
-
-            <!-- TODO: АХТУНГ: КАРТОЧКА ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАЛИЧИИ АВТОМОБИЛЯ -->
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dp"
-                android:background="@drawable/card"
-                android:visibility="gone"
-                app:cardBackgroundColor="#FAFAFA"
-                app:cardCornerRadius="18dp">
-
-                <ImageView
-                    android:id="@+id/imageView2"
-                    android:layout_width="157dp"
-                    android:layout_height="150dp"
-                    android:src="@drawable/ic_car"
-                    android:translationX="-80dp" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/textView9"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:padding="5dp"
-                        android:text="@string/auto_set"
-                        android:textColor="#484848"
-                        android:textSize="24sp" />
-
-                    <TextView
-                        android:id="@+id/prof_car_type"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="Car Type"
-                        android:textColor="#555"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/prof_car_name"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="Car Name"
-                        android:textColor="#555"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/prof_car_sign"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="Car Sign"
-                        android:textColor="#555"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/prof_car_seats"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="Car Seats"
-                        android:textColor="#555"
-                        android:textSize="16sp" />
-
-                </LinearLayout>
-
-            </android.support.v7.widget.CardView>
-
-            <android.support.v7.widget.CardView
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginTop="24dp"
-                android:layout_marginBottom="140dp"
-                android:background="@drawable/card"
-                app:cardCornerRadius="18dp">
-
-                <ImageView
-                    android:id="@+id/imageView12"
-                    android:layout_width="157dp"
-                    android:layout_height="150dp"
-                    android:padding="30dp"
-                    android:src="@drawable/ic_handyman_tools"
-                    android:translationX="-60dp" />
-
-                <LinearLayout
+                <android.support.v7.widget.CardView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="16dp"
-                    android:layout_marginTop="16dp"
-                    android:layout_marginRight="16dp"
-                    android:layout_marginBottom="32dp"
-                    android:orientation="vertical">
+                    android:layout_marginTop="48dp"
+                    android:background="@drawable/card"
+                    android:visibility="gone"
+                    app:cardBackgroundColor="#FAFAFA"
+                    app:cardCornerRadius="18dp">
 
-                    <TextView
-                        android:id="@+id/textView19"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:fontFamily="@font/ubuntu_bold"
-                        android:padding="5dp"
-                        android:text="@string/equipment"
-                        android:textColor="#484848"
-                        android:textSize="24sp" />
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="157dp"
+                        android:layout_height="150dp"
+                        android:src="@drawable/ic_car"
+                        android:translationX="-80dp" />
 
-                    <TextView
-                        android:id="@+id/prof_equip"
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/textView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:padding="5dp"
+                            android:text="@string/auto_set"
+                            android:textColor="#484848"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/prof_car_type"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Car Type"
+                            android:textColor="#555"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/prof_car_name"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Car Name"
+                            android:textColor="#555"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/prof_car_sign"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Car Sign"
+                            android:textColor="#555"
+                            android:textSize="16sp" />
+
+                        <TextView
+                            android:id="@+id/prof_car_seats"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Car Seats"
+                            android:textColor="#555"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
+
+                </android.support.v7.widget.CardView>
+
+                <android.support.v7.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="140dp"
+                    android:background="@drawable/card"
+                    app:cardCornerRadius="18dp">
+
+                    <ImageView
+                        android:id="@+id/imageView12"
+                        android:layout_width="157dp"
+                        android:layout_height="150dp"
+                        android:padding="30dp"
+                        android:src="@drawable/ic_handyman_tools"
+                        android:translationX="-60dp" />
+
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginTop="8dp"
-                        android:fontFamily="@font/ubuntu"
-                        android:text="Equipment"
-                        android:textColor="#555"
-                        android:textSize="16sp" />
-                    <Button
-                        android:id="@+id/back5"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="18dp"
-                        android:layout_marginRight="60dp"
-                        android:layout_marginBottom="80dp"
-                        android:background="@drawable/button_light"
-                        android:fontFamily="@font/ubuntu_medium"
-                        android:padding="18dp"
-                        android:text="Назад"
-                        android:textSize="16sp" />
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginRight="16dp"
+                        android:layout_marginBottom="32dp"
+                        android:orientation="vertical">
 
-                </LinearLayout>
+                        <TextView
+                            android:id="@+id/textView19"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:fontFamily="@font/ubuntu_bold"
+                            android:padding="5dp"
+                            android:text="@string/equipment"
+                            android:textColor="#484848"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/prof_equip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:layout_marginTop="8dp"
+                            android:fontFamily="@font/ubuntu"
+                            android:text="Equipment"
+                            android:textColor="#555"
+                            android:textSize="16sp" />
+
+                    </LinearLayout>
 
 
-            </android.support.v7.widget.CardView>
-        </LinearLayout>
-    </ScrollView>
+                </android.support.v7.widget.CardView>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 </FrameLayout>
