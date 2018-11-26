@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     tools:context=".Blog">
 
+<<<<<<< HEAD
     <!-- TODO: Update blank fragment layout -->
 
     <ScrollView
@@ -242,6 +243,32 @@
                 </android.support.v7.widget.CardView>
 
             </android.support.constraint.ConstraintLayout>
+=======
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Добавить задачу" />
+        <Button
+            android:id="@+id/back3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Назад" />
+
+        <ListView
+            android:id="@+id/discr_for_task_my"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </ListView>
+
+    </LinearLayout>
+>>>>>>> ef5c4860c6e65f36d3e8408a4c7395326ae6f3b4
 
         </LinearLayout>
     </ScrollView>

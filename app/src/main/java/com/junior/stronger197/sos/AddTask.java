@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.searchandrescue.CircularTransformation;
@@ -32,7 +33,6 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
-
 
 import java.io.IOException;
 import java.util.Objects;
@@ -56,7 +56,7 @@ public class AddTask extends Fragment {
     private ImageView img;
     private volatile String dbCounter = "";
 
-    private FirebaseAuth mAuth;
+
 
     private DatabaseReference mRef;
     public int counterFor = 0;
@@ -143,7 +143,9 @@ public class AddTask extends Fragment {
                     mRef.child("tasks").child(stringCounter).child("NaturalConditions").setValue(mNaturalConditions);
                     mRef.child("tasks").child(stringCounter).child("time").setValue(mTime);
                     mRef.child("tasks").child(stringCounter).child("Relevance").setValue(true);
-                    mRef.child("tasks").child(stringCounter).child("Date").setValue(mDate);
+                    mRef.child("tasks").child(stringCounter).child("someTask").child("0").setValue("Тестовая задача");
+                    mRef.child("tasks").child(stringCounter).child("someTaskValue").setValue("-1");
+
                     String imagePath = "gs://forfindpeople.appspot.com/" + "images/" + mNameTask + "_" + stringCounter + "_img"; // путь до обложки
                     mRef.child("tasks").child(stringCounter).child("UriForPhoto").setValue(imagePath);
                     mRef.child("counter").setValue(stringCounter);
@@ -158,10 +160,6 @@ public class AddTask extends Fragment {
                 Toast.makeText(getActivity(), "Error" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
-        // баг с тем, что занчения в бд он отправляет раньше, чем получает dbCounter
-
-
-
     }
 
     public void onActivityResult(int requestCode, int resultCode, Intent resultIntent) {

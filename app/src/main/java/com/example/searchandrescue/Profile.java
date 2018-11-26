@@ -1,109 +1,114 @@
 package com.example.searchandrescue;
 
-import android.content.Context;
-import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.junior.stronger197.sos.NewTaskAfterAdd;
 
-/**
- * A simple {@link Fragment} subclass.
- * Activities that contain this fragment must implement the
- * {@link Profile.OnFragmentInteractionListener} interface
- * to handle interaction events.
- * Use the {@link Profile#newInstance} factory method to
- * create an instance of this fragment.
- */
 public class Profile extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+    private TextView mNameTask;
+    private TextView mTelephone;
+    private TextView mSex;
+    private TextView mCarTupe;
+    private TextView mCarName;
+    private TextView mCarSign;
+    private TextView mCarSeats;
+    private TextView mEquip;
+    private TextView mAge;
 
-    // TODO: Rename and change types of parameters
-    // TODO: АХТУНГ: КАРТОЧКА ПОЯВЛЯЕТСЯ ТОЛЬКО ПРИ НАЛИЧИИ АВТОМОБИЛЯ
-    private String mParam1;
-    private String mParam2;
+    private DatabaseReference mRef;
 
-    private OnFragmentInteractionListener mListener;
+    public String idUser = "0";
+    public String valueAfterBlog1;
+    public String valueAfterBlog2;
 
-    public Profile() {
-        // Required empty public constructor
-    }
-
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Profile.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static Profile newInstance(String param1, String param2) {
-        Profile fragment = new Profile();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
-        return fragment;
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_profile, container, false);
-    }
+        View rootView = inflater.inflate(R.layout.fragment_profile, container, false);
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
+        Bundle bundle = getArguments();
+        if(bundle != null){
+            idUser = bundle.getString("ForProfile", "0");
+            valueAfterBlog1 = bundle.getString("ForProfileValue1", "0");
+            valueAfterBlog2 = bundle.getString("ForProfileValue2", "0");
         }
+
+        mNameTask = (TextView) rootView.findViewById(R.id.prof_name);
+        mTelephone = (TextView) rootView.findViewById(R.id.prof_telephone);
+        mSex = (TextView) rootView.findViewById(R.id.prof_sex_age);
+        mCarTupe = (TextView) rootView.findViewById(R.id.prof_car_type);
+        mCarName = (TextView) rootView.findViewById(R.id.prof_car_name);
+        mCarSign = (TextView) rootView.findViewById(R.id.prof_car_sign);
+        mCarSeats = (TextView) rootView.findViewById(R.id.prof_car_seats);
+        mEquip = (TextView) rootView.findViewById(R.id.prof_equip);
+        mAge = (TextView) rootView.findViewById(R.id.prof_age);
+
+        changeText();
+
+        Button back = (Button) rootView.findViewById(R.id.back5);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new NewTaskAfterAdd();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+
+                Bundle bundle = new Bundle();
+                bundle.putString("ValueForNewTaskAfterAdd", valueAfterBlog1);
+                bundle.putString("ValueOfStartFragment", valueAfterBlog2);
+                fragment.setArguments(bundle);
+            }
+        });
+
+        return rootView;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if (context instanceof OnFragmentInteractionListener) {
-            mListener = (OnFragmentInteractionListener) context;
-        } else {
-            throw new RuntimeException(context.toString()
-                    + " must implement OnFragmentInteractionListener");
-        }
+    public void changeText() {
+
+        mRef = FirebaseDatabase.getInstance().getReference();
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                mNameTask.setText(dataSnapshot.child("volunter").child(idUser).child("full_name").getValue(String.class));
+                mTelephone.setText(dataSnapshot.child("volunter").child(idUser).child("telephone").getValue(String.class));
+                mSex.setText(dataSnapshot.child("volunter").child(idUser).child("coordinate").getValue(String.class));
+                mCarTupe.setText(dataSnapshot.child("volunter").child(idUser).child("car_type").getValue(String.class));
+                mCarName.setText(dataSnapshot.child("volunter").child(idUser).child("car_name").getValue(String.class));
+                mCarSign.setText(dataSnapshot.child("volunter").child(idUser).child("car_sign_in").getValue(String.class));
+                mCarSeats.setText(dataSnapshot.child("volunter").child(idUser).child("car_seats").getValue(String.class));
+                mEquip.setText(dataSnapshot.child("volunter").child(idUser).child("equipment").getValue(String.class));
+                mAge.setText(dataSnapshot.child("volunter").child(idUser).child("age").getValue(String.class));
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+                Toast.makeText(getActivity(), "Error" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
+
+
     }
 
-    @Override
-    public void onDetach() {
-        super.onDetach();
-        mListener = null;
-    }
-
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
-    public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
-    }
 }

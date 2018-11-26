@@ -1,9 +1,14 @@
 package com.example.searchandrescue;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +21,7 @@ import com.example.searchandrescue.R;
 
 public class Map extends Fragment {
     private String coords;
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -33,11 +39,15 @@ public class Map extends Fragment {
                 coords = ((EditText) getActivity().findViewById(R.id.textCoordinates)).getText().toString();
                 Intent intent = new Intent();
                 intent.setAction(Intent.ACTION_VIEW);
-                intent.setData(Uri.parse("geo:"+coords));
+                intent.setData(Uri.parse("geo:" + coords));
                 startActivity(intent);
             }
         });
+
+
         return rootView;
+
+
     }
 
 }
