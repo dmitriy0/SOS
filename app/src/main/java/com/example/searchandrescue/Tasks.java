@@ -20,6 +20,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.GenericTypeIndicator;
 import com.google.firebase.database.ValueEventListener;
+import com.junior.stronger197.sos.AddTask;
 
 import java.util.List;
 
@@ -28,7 +29,8 @@ public class Tasks extends Fragment {
     private DatabaseReference mRef;
     private List<String> mTasks;
 
-    ListView listTasks;
+    private ListView listTasks;
+    private String counter = "-1";
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,12 +39,41 @@ public class Tasks extends Fragment {
 
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(LayoutInflater inflater, final ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View rootView = inflater.inflate(R.layout.fragment_tasks, container, false);
+        mRef = FirebaseDatabase.getInstance().getReference();
+        mRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                counter = dataSnapshot.child("counter").getValue(String.class);
+                if("-1".equals(counter)){
+                    Fragment fragment = new AddTask();
+                    FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                    fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                    Toast.makeText(getActivity(), "Нет задач", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    checked();
+                }
 
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
         listTasks = (ListView) rootView.findViewById(R.id.discr_for_task);
+
+
+
+        return rootView;
+
+    }
+
+    private void checked(){
         mRef = FirebaseDatabase.getInstance().getReference();
 
         listTasks.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -52,8 +83,6 @@ public class Tasks extends Fragment {
                 TextView textView = (TextView) itemClicked;
                 String strText = textView.getText().toString(); // получаем текст нажатого элемента
                 //Toast.makeText(getActivity(), position + "", Toast.LENGTH_SHORT).show();
-
-
                 Fragment fragment = new Task();
                 FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
                 fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
@@ -70,26 +99,21 @@ public class Tasks extends Fragment {
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 GenericTypeIndicator<List<String>> t = new GenericTypeIndicator<List<String>>() {};
                 mTasks = dataSnapshot.child("allTasks").getValue(t);
-                //Toast.makeText(getActivity(), dataSnapshot.child("allTasks").child("1").getValue(String.class), Toast.LENGTH_SHORT).show();
+
                 updateUI();
             }
-
-
-
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Toast.makeText(getActivity(), "Error cod" + databaseError.getCode(), Toast.LENGTH_SHORT).show();
             }
         });
+    }
 
-
-        return rootView;
-
-    }public void updateUI(){
+    public void updateUI(){
 
 
         if(getActivity() != null) {
-            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), android.R.layout.simple_list_item_1, mTasks);
+            ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.list_text_view, mTasks);
             listTasks.setAdapter(adapter);
         }
 

@@ -6,16 +6,14 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.Toast;
 import android.widget.TextView;
 
-import com.example.searchandrescue.R;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -23,10 +21,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
-import com.google.firebase.storage.StorageReference;
-import com.google.firebase.storage.UploadTask;
 
 import java.util.Objects;
 
@@ -44,7 +38,7 @@ public class Task extends Fragment {
 
     private String stringCounter;
     private FirebaseAuth mAuth;
-    FirebaseUser user = mAuth.getInstance().getCurrentUser();
+    private FirebaseUser user = mAuth.getInstance().getCurrentUser();
     private String nowNumber;
 
 
@@ -60,6 +54,12 @@ public class Task extends Fragment {
                              Bundle savedInstanceState) {
         View rootView = inflater.inflate(R.layout.fragment_task, container, false);
 
+        Bundle bundle = getArguments();
+        conterOfFragment = "0";
+        if(bundle != null){
+            conterOfFragment = bundle.getString("Value", "0");
+        }
+
         mNameTask = (TextView) rootView.findViewById(R.id.nameFromDatabase);
         mDescrbingOfTask = (TextView) rootView.findViewById(R.id.descridingFromDatabase);
         mCoordiinate1 = (TextView) rootView.findViewById(R.id.coordinate1From);
@@ -69,15 +69,13 @@ public class Task extends Fragment {
         mTime = (TextView) rootView.findViewById(R.id.timeFrom);
         mDate = (TextView) rootView.findViewById(R.id.dateFrom);
 
-        Bundle bundle = getArguments();
-        conterOfFragment = "0";
-        if(bundle != null){
-            conterOfFragment = bundle.getString("Value", "0");
-        }
-        Toast.makeText(getActivity(), conterOfFragment, Toast.LENGTH_SHORT).show();
+        Button pin = rootView.findViewById(R.id.cektedTask), base = rootView.findViewById(R.id.wentToBase), home = rootView.findViewById(R.id.returnToHome), chat = rootView.findViewById(R.id.chat);
+
+
+        //Toast.makeText(getActivity(), conterOfFragment, Toast.LENGTH_SHORT).show();
         changeText();
 
-        Button cektedReturnHome = (Button) rootView.findViewById(R.id.returnToHome);
+        Button cektedReturnHome = (Button) rootView.findViewById(R.id.returnToHome); // кнопка о возвращении домой
         cektedReturnHome.setOnClickListener(new View.OnClickListener() {
 
             @Override
@@ -85,29 +83,57 @@ public class Task extends Fragment {
                 int intCounter = Integer.parseInt(nowNumber);
                 intCounter++;
                 String stringCounterTru = Integer.toString(intCounter);
+                mRef = FirebaseDatabase.getInstance().getReference();
                 mRef.child("ratingOfVolunteerCounter").child(stringCounter).setValue(stringCounterTru);
                 mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("returnToHome").setValue("true");
+                Toast.makeText(getActivity(), "Вы отметились, что возвратились домой", Toast.LENGTH_SHORT).show();
             }
         });
 
-        Button cektedTask = (Button) rootView.findViewById(R.id.cektedTask);
+        Button cektedTask = (Button) rootView.findViewById(R.id.cektedTask); // кнопка о проикреплении к задачи
         cektedTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mRef = FirebaseDatabase.getInstance().getReference();
-                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid());
+                mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("name");
                 mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("wentToBase").setValue("false");
                 mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("returnToHome").setValue("false");
+                Toast.makeText(getActivity(), "закрепление прошло удачно", Toast.LENGTH_SHORT).show();
 
             }
         });
 
-        Button wentToBase = (Button) rootView.findViewById(R.id.wentToBase);
+        Button wentToBase = (Button) rootView.findViewById(R.id.wentToBase); // кнопка о приезде на базу
         wentToBase.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mRef = FirebaseDatabase.getInstance().getReference();
                 mRef.child("tasks").child(conterOfFragment).child("whoAddTask").child(user.getUid()).child("wentToBase").setValue("true");
+                Toast.makeText(getActivity(), "Вы отметились, что приехали на базу", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        Button chats = (Button) rootView.findViewById(R.id.chat); // кнопка перехода в чат
+        chats.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new Blog();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
+                Bundle bundle = new Bundle();
+                String valueOfReplace = conterOfFragment;
+                bundle.putString("ValueOFPositionParentTask", valueOfReplace);
+                fragment.setArguments(bundle);
+            }
+        });
+
+        Button back = (Button) rootView.findViewById(R.id.back2);
+        back.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Fragment fragment = new Tasks();
+                FragmentManager fragmentManager = getActivity().getSupportFragmentManager();
+                fragmentManager.beginTransaction().replace(R.id.container, fragment).commit();
             }
         });
 
